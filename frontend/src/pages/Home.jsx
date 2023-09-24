@@ -3,7 +3,6 @@ import image1 from "../assets/images/image-1.png";
 import image2 from "../assets/images/image-2.png";
 import image3 from "../assets/images/image-3.png";
 import Card from "../components/Card";
-import { Link } from "react-router-dom";
 
 const cardData = [
   {
@@ -42,7 +41,6 @@ function App() {
   return (
     <>
       <div className="bg-bkg text-content isolate overflow-hidden p-4 sm:p-8 grid place-items-center">
-        <Link to="/todo">Go to Todo Page</Link>
         <div className="grid relative min-h-screen place-items-center place-content-center gap-16 before:absolute before:h-1/2 before:w-3/4 before:rounded-tr-full before:rounded-bl-full before:blur-3xl before:bg-accent-2 before:animate-spin-slower before:-z-10 after:absolute after:h-2/3 after:w-2/3 after:rounded-tr-full after:rounded-bl-full after:blur-3xl after:bg-accent-1/80 after:animate-spin-slow after:-z-10">
           <h1 className="text-6xl font-bold">
             <span className="underline decoration-accent-1">Dark</span> or{" "}

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <header className="py-8 bg-bkg">
+    <header className="fixed z-50 w-full py-8 bg-bkg ">
       <div className="container mx-auto inline">
         <div className="flex justify-between items-center h-1 ">
           <div className="flex-none">
@@ -18,8 +18,8 @@ function NavBar() {
 
           <div className="flex-initial items-start text-content w-1/5">
             <div className="flex gap-x-20">
-              <Link to="/todo">Todo</Link>
-              <Link to="/todo">Todo</Link>
+              <a href="#Home">Home</a>
+              <a href="#Testimonial">Testimonial</a>
               <Link to="/todo">Todo</Link>
               <Link to="/todo">Todo</Link>
             </div>

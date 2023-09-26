@@ -18,10 +18,10 @@ function NavBar() {
 
           <div className="flex-initial items-start text-content w-1/5">
             <div className="flex gap-x-20">
-              <a href="#Home">Home</a>
-              <a href="#Testimonial">Testimonial</a>
+              <a href="/#Home">Home</a>
+              <a href="/#Testimonial">Testimonial</a>
               <Link to="/todo">Todo</Link>
-              <Link to="/todo">Todo</Link>
+              <Link to="/blogs">Blogs</Link>
             </div>
           </div>
 

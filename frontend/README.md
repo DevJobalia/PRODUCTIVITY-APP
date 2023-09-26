@@ -9,12 +9,18 @@ npm install react-router-dom
 ```bash
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+
+npm i framer-motion
 ```
 
 # DEMO
+
 https://github.com/DevJobalia/ReactToggler/assets/109411169/6b979e0e-4cce-43b4-b2ae-50031ac00f0e
 
+# animation
 
+framer motion
+fast marque
 
 # REFERENCES:
 

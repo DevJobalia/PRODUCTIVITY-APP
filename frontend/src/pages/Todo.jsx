@@ -1,3 +1,4 @@
+// ANIMATION: SMALL BIG: https://github.com/DevJobalia/React-Card-Animation
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { HiPlus } from "react-icons/hi";
@@ -47,29 +48,44 @@ function Todo() {
             <div className="flex-initial w-2/3 bg-slate-200">
               {/* <h1 className="font-primary font-bold text-center">Task</h1> */}
               <div className=" grid grid-cols-2 gap-6 p-6">
-                <div className="bg-orange-100 rounded-md p-2">
+                <motion.div
+                  transition={{ layout: { duration: 1, type: "spring" } }}
+                  layout
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="bg-orange-100 rounded-md p-2"
+                >
                   <div className="flex justify-between place-items-center font-bold mb-2">
-                    The first task title
+                    <motion.h2 layout="position" h2>
+                      The first task title
+                    </motion.h2>
                     <BsThreeDots className="place-content-center" />
                   </div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Nesciunt, minima?
-                  <div className="flex justify-between place-items-center font-bold mt-2">
-                    <div className="flex">
-                      <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
-                      <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        className="mx-1 w-3 h-3"
-                      />
-                      Done
-                    </div>
-                  </div>
-                </div>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 1 }}
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Nesciunt, minima?
+                      <div className="flex justify-between place-items-center font-bold mt-2">
+                        <div className="flex">
+                          <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
+                          <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />
+                        </div>
+                        <div>
+                          <input
+                            type="checkbox"
+                            name=""
+                            id=""
+                            className="mx-1 w-3 h-3"
+                          />
+                          Done
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </motion.div>
               </div>
             </div>
           </div>

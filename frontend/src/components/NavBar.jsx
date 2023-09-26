@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../assets/Logo.png";
-import dot from "../assets/circle-solid.svg";
+import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
 
@@ -22,6 +22,7 @@ function NavBar() {
               <a href="/#Testimonial">Testimonial</a>
               <Link to="/todo">Todo</Link>
               <Link to="/blogs">Blogs</Link>
+              <Link to="/events">Events</Link>
             </div>
           </div>
 
@@ -30,7 +31,12 @@ function NavBar() {
               {/* SIGN IN */}
               <a className="text-gradient btn-link">Log In</a>
 
-              <img src={dot} alt="" className="w-3 gap-y-10 " />
+              {/* <img
+                src={dot}
+                alt=""
+                className="w-3 gap-y-1 fill-current text-teal-300"
+              /> */}
+              <GoDotFill className="text-content" />
 
               {/* SIGN UP */}
               <button className="btn h-[48px] px-6 text-sm">Sign Up</button>

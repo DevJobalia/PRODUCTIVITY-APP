@@ -15,10 +15,15 @@ module.exports = {
         bkg: "hsl(var(--color-bkg) / <alpha-value>)",
         content: "hsl(var(--color-secondary) / <alpha-value>)",
       },
-      // animation: {
-      //   "spin-slower": "spin 35s ease infinite",
-      //   "spin-slow": "spin 25s ease-in-out infinite reverse",
-      // },
+      animation: {
+        "infinite-scroll": "infinite-scroll 25s linear infinite",
+      },
+      keyframes: {
+        "infinite-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
+      },
     },
   },
   plugins: [],

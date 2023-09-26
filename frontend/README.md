@@ -11,6 +11,7 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
 npm i framer-motion
+npm install react-icons
 ```
 
 # DEMO

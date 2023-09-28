@@ -5,8 +5,14 @@ import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
 
 function NavBar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <header className="fixed z-50 w-full p-5 lg:py-1 bg-bkg ">
+    <header className="fixed z-50 w-full p-5 lg:py-1 bg-bkg">
       <div className="container mx-auto">
         <div className="flex flex-col justify-between lg:items-center h-fit md:flex-row">
           <div className="flex justify-between items-center">
@@ -14,13 +20,14 @@ function NavBar() {
               <button
                 data-collapse-toggle="navbar-default"
                 type="button"
-                class="flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                // aria-controls="navbar-default"
-                // aria-expanded="false"
+                onClick={toggleMobileMenu}
+                className="flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default"
+                aria-expanded={isMobileMenuOpen ? "true" : "false"}
               >
-                <span class="sr-only">Open main menu</span>
+                <span className="sr-only">Open main menu</span>
                 <svg
-                  class="w-5 h-5"
+                  className={`w-5 h-5 ${isMobileMenuOpen ? "rotate-180" : ""}`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -28,9 +35,9 @@ function NavBar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M1 1h15M1 7h15M1 13h15"
                   />
                 </svg>
@@ -44,13 +51,27 @@ function NavBar() {
             </div>
           </div>
 
-          <div className="flex-initial items-start text-content">
+          <div
+            className={`${
+              isMobileMenuOpen ? "block" : "hidden"
+            } md:block md:flex-initial items-start text-content`}
+          >
             <div className="flex flex-col md:flex-row md:gap-x-20">
-              <a href="/#Home">Home</a>
-              <a href="/#Testimonial">Testimonial</a>
-              <Link to="/todo">Todo</Link>
-              <Link to="/blogs">Blogs</Link>
-              <Link to="/events">Events</Link>
+              <a href="/#Home" onClick={toggleMobileMenu}>
+                Home
+              </a>
+              <a href="/#Testimonial" onClick={toggleMobileMenu}>
+                Testimonial
+              </a>
+              <Link to="/todo" onClick={toggleMobileMenu}>
+                Todo
+              </Link>
+              <Link to="/blogs" onClick={toggleMobileMenu}>
+                Blogs
+              </Link>
+              <Link to="/events" onClick={toggleMobileMenu}>
+                Events
+              </Link>
             </div>
           </div>
           <div className="flex-initial items-center">
@@ -74,4 +95,5 @@ function NavBar() {
     </header>
   );
 }
+
 export default NavBar;

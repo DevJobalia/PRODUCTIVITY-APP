@@ -57,9 +57,7 @@ function NavBar() {
             } md:block md:flex-initial items-start text-content`}
           >
             <div className="flex flex-col md:flex-row md:gap-x-20">
-              <a href="/#Home" onClick={toggleMobileMenu}>
-                Home
-              </a>
+              <a href="/#Home">Home</a>
               <a href="/#Testimonial" onClick={toggleMobileMenu}>
                 Testimonial
               </a>

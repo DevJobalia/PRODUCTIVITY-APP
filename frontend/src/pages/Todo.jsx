@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { HiPlus } from "react-icons/hi";
 import { GoDotFill } from "react-icons/go";
 import { BsThreeDots } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Todo() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,9 @@ function Todo() {
             <h2 className="text-6xl font-bold text-content">
               <span className="underline decoration-accent-1">todo</span>
             </h2>
-            <HiPlus className="w-10 h-10" />
+            <Link to="/newTask">
+              <HiPlus className="w-10 h-10" />
+            </Link>
           </div>
           {/* MAIN CONTENT */}
           <div className="bg-content mt-5 rounded-md flex text-bkg">

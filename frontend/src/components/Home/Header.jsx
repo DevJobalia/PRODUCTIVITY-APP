@@ -6,7 +6,7 @@ function Header() {
       className="bg-bkg text-content isolate overflow-hidden place-items-center"
       id="Home"
     >
-      <section className="min-h-screen text-content isolate overflow-hidden grid place-items-center mt-10">
+      <section className="min-h-screen text-content isolate overflow-hidden grid place-items-center mt-16 p-20 lg:mt-10">
         <h2 className="py-2 px-4 bg-accent-1 rounded-full">
           Over 3 million ready-to-work creatives in our community!
         </h2>

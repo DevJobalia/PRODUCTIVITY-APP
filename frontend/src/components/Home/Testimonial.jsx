@@ -14,7 +14,7 @@ const cardData = [
       alt: "galaxy swirl",
     },
     description:
-      "Galaxy swirls refer to the patterns of stars and gas within galaxies that appear as spiral arms. These arms are formed by the gravitational forces between stars and the rotation of the galaxy.",
+      "Galaxy swirls refer to the patterns of stars and gas within galaxies that appear as spiral arms.",
     cta: "Let’s Gooooooo!",
   },
   {
@@ -24,7 +24,7 @@ const cardData = [
       alt: "beach at sunset",
     },
     description:
-      "Beaches at sunset offer a picturesque view of the sun setting over the ocean, with warm hues of orange, pink, and purple painting the sky. It's a serene and romantic experience.",
+      "Beaches at sunset offer a picturesque view of the sun setting over the ocean, with warm hues of orange, pink, and purple painting the sky.",
     cta: "Take me surfing!",
   },
   {
@@ -34,7 +34,7 @@ const cardData = [
       alt: "jagged mountains",
     },
     description:
-      "Mountains are majestic landforms characterized by steep slopes and high elevations. They are often associated with natural beauty, adventure, and challenge, and are home to diverse ecosystems and unique cultures.",
+      "Mountains are majestic landforms characterized by steep slopes and high elevations.",
     cta: "Pack My Bags",
   },
   {
@@ -44,7 +44,7 @@ const cardData = [
       alt: "galaxy swirl",
     },
     description:
-      "Galaxy swirls refer to the patterns of stars and gas within galaxies that appear as spiral arms. These arms are formed by the gravitational forces between stars and the rotation of the galaxy.",
+      "Galaxy swirls refer to the patterns of stars and gas within galaxies that appear as spiral arms.",
     cta: "Let’s Gooooooo!",
   },
   {
@@ -54,7 +54,7 @@ const cardData = [
       alt: "beach at sunset",
     },
     description:
-      "Beaches at sunset offer a picturesque view of the sun setting over the ocean, with warm hues of orange, pink, and purple painting the sky. It's a serene and romantic experience.",
+      "Beaches at sunset offer a picturesque view of the sun setting over the ocean, with warm hues of orange, pink, and purple painting the sky.",
     cta: "Take me surfing!",
   },
   {
@@ -64,7 +64,7 @@ const cardData = [
       alt: "jagged mountains",
     },
     description:
-      "Mountains are majestic landforms characterized by steep slopes and high elevations. They are often associated with natural beauty, adventure, and challenge, and are home to diverse ecosystems and unique cultures.",
+      "Mountains are majestic landforms characterized by steep slopes and high elevations.",
     cta: "Pack My Bags",
   },
 ];
@@ -82,7 +82,7 @@ function Testimonial() {
       id="Testimonial"
     >
       <section>
-        <div className="grid relative min-h-screen place-items-center place-content-center gap-8 before:absolute before:h-1/2 before:w-3/4 before:rounded-tr-full before:rounded-bl-full before:blur-3xl before:bg-accent-2 before:animate-spin-slower before:-z-10 after:absolute after:h-2/3 after:w-2/3 after:rounded-tr-full after:rounded-bl-full after:blur-3xl after:bg-accent-1/80 after:animate-spin-slow after:-z-10 mt-10">
+        <div className="grid relative min-h-screen place-items-center place-content-center gap-8 before:absolute before:h-1/2 before:w-3/4 before:rounded-tr-full before:rounded-bl-full before:blur-3xl before:bg-accent-2 before:animate-spin-slower before:-z-10 after:absolute after:h-2/3 after:w-2/3 after:rounded-tr-full after:rounded-bl-full after:blur-3xl after:bg-accent-1/80 after:animate-spin-slow after:-z-10  mt-16 lg:mt-10">
           <h1 className="text-6xl font-bold text-content">
             <span className="underline decoration-accent-1">Testimonial</span>{" "}
             {/* <span className="underline decoration-accent-1">Light</span>? */}

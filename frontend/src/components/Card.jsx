@@ -1,6 +1,6 @@
 const Card = ({ title, img, description, cta }) => {
   return (
-    <article className="w-96 rounded-md border-2 border-accent-1 p-4 mx-1">
+    <article className="w-72 lg:w-96 rounded-md border-2 border-accent-1 p-4 mx-1">
       <h2 className="text-3xl font-bold">{title}</h2>
       <img src={img.src} alt={img.alt} className="aspect-video rounded-sm" />
       <p>{description}</p>

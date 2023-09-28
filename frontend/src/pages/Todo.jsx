@@ -23,23 +23,23 @@ function Todo() {
           <div className="bg-content mt-5 rounded-md flex text-bkg">
             <div className="flex-initial w-1/3 bg-slate-100">
               <h1 className="font-primary font-bold text-center">Filters</h1>
-              <div className="flex place-items-center  ">
+              <div className="flex items-center  ">
                 <GoDotFill className="w-10 h-10 text-purple-400 place-content-center" />
                 Work
               </div>
-              <div className="flex place-items-center  ">
+              <div className="flex items-center  ">
                 <GoDotFill className="w-10 h-10 text-pink-400 place-content-center" />
                 Study
               </div>
-              <div className="flex place-items-center  ">
+              <div className="flex items-center  ">
                 <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
                 Entertainment
               </div>
-              <div className="flex place-items-center  ">
+              <div className="flex items-center  ">
                 <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />
                 Family
               </div>
-              <div className="flex place-items-center">
+              <div className="flex items-center">
                 <input type="checkbox" name="" id="" className="mx-3 w-4 h-4" />
                 Hide Done Tasks
               </div>
@@ -54,7 +54,7 @@ function Todo() {
                   onClick={() => setIsOpen(!isOpen)}
                   className="bg-orange-100 rounded-md p-2"
                 >
-                  <div className="flex justify-between place-items-center font-bold mb-2">
+                  <div className="flex justify-between items-center font-bold mb-2">
                     <motion.h2 layout="position" h2>
                       The first task title
                     </motion.h2>
@@ -68,7 +68,7 @@ function Todo() {
                     >
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Nesciunt, minima?
-                      <div className="flex justify-between place-items-center font-bold mt-2">
+                      <div className="flex justify-between items-center font-bold mt-2">
                         <div className="flex">
                           <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
                           <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />

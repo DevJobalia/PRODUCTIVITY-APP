@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import image1 from "../../assets/images/image-1.png";
 import image2 from "../../assets/images/image-2.png";
 import image3 from "../../assets/images/image-3.png";
@@ -70,12 +70,15 @@ const cardData = [
 ];
 
 function Testimonial() {
-  // const [width, setWidth] = useState(0);
-  const carousel = useRef();
-  // useEffect(() => {
-  //   console.log(carousel.current.scrollWidth, carousel.current.offsetWidth);
-  //   // setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-  // }, []);
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (window.innerWidth > 1000) {
+      setWidth(460);
+    } else {
+      setWidth(700);
+    }
+  }, []);
+
   return (
     <div
       className="bg-bkg text-content isolate overflow-hidden p-1"
@@ -88,15 +91,11 @@ function Testimonial() {
             {/* <span className="underline decoration-accent-1">Light</span>? */}
           </h1>
           {/* TESTIMONIAL */}
-          {/* <motion.div ref={carousel} className="w-fit"> */}
           <motion.section
-            // animate={{ x }}
-            // transition={{ repeat: Infinity, type: "spring" }}
             whileHover={{ scale: 0.9 }}
             whileTap={{ scale: 0.8 }}
             drag="x"
-            dragConstraints={{ left: -500, right: 500 }}
-            // className="container grid sm:grid-cols-2 md:grid-cols-3 gap-6 items-start"
+            dragConstraints={{ left: -width, right: width }}
             className="flex gap-4 cursor-grab"
             aria-label="card container"
           >
@@ -104,7 +103,6 @@ function Testimonial() {
               <Card {...card} key={card.title} />
             ))}
           </motion.section>
-          {/* </motion.div> */}
         </div>
       </section>
     </div>

@@ -23,6 +23,17 @@
   );
 }
 
+.inner-carousel {
+  display: flex;
+  background: lightblue;
+}
+
+.carousel {
+  cursor: grab;
+  overflow: hidden;
+  background: lightsalmon;
+}
+
 .gradient,
 .active {
   background: linear-gradient(

@@ -80,7 +80,9 @@ function NavBar() {
           <div className="flex-auto justify-between md:flex-initial">
             <div className="flex justify-between items-center content-center">
               {/* SIGN IN */}
-              <a className="text-gradient btn-link">Log In</a>
+              <a className="text-gradient btn-link" href="/signin">
+                Log In
+              </a>
               <div className="hidden md:flex items-center">
                 <GoDotFill className="text-content mx-2" />
 

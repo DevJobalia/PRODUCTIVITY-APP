@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+.input {
+  display: block;
+
+  padding-right: 2.5rem; /* You can adjust the actual value accordingly */
+
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-width: 2px;
+
+  border-color: #ffedd9; /* You can adjust the actual color code */
+
+  border-radius: 0.25rem; /* You can adjust the actual value accordingly */
+
+  width: 100%;
+
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  margin-bottom: 0.75rem;
+
+  line-height: 1.25;
+  outline: none;
+
+  transition-property: background-color, border-color;
+  transition-duration: 500ms; /* You can adjust the actual duration accordingly */
+  transition-timing-function: ease-in-out;
+}
+
+input:focus {
+  background-color: #fff; /* You can adjust the actual color code */
+
+  border-color: #ff6d00; /* You can adjust the actual color code */
+}
+
 .btn {
   background: linear-gradient(
     92.23deg,

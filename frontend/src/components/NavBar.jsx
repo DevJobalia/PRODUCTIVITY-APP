@@ -14,9 +14,20 @@ function NavBar() {
   return (
     <header className="fixed z-50 w-full p-5 lg:py-1 bg-bkg">
       <div className="container mx-auto">
-        <div className="flex flex-col justify-between lg:items-center h-fit md:flex-row">
+        <div
+          className={`${
+            isMobileMenuOpen ? "block md:flex" : "flex"
+          } justify-between h-fit md:flex-row items-center content-center`}
+          // className="justify-between lg:items-center h-fit md:flex-row content-center"
+        >
           <div className="flex justify-between items-center">
-            <div className="flex-none">
+            <div>
+              {/* logo */}
+              <a href="/">
+                <img src={Logo} alt="" className="w-20 block m-auto lg:flex" />
+              </a>
+            </div>
+            <div className="flex-1">
               <button
                 data-collapse-toggle="navbar-default"
                 type="button"
@@ -43,18 +54,12 @@ function NavBar() {
                 </svg>
               </button>
             </div>
-            <div>
-              {/* logo */}
-              <a href="/">
-                <img src={Logo} alt="" className="w-20 block m-auto lg:flex" />
-              </a>
-            </div>
           </div>
-
+          {/* <div className={`${isMobileMenuOpen ? "block" : "flex"}`}> */}
           <div
             className={`${
               isMobileMenuOpen ? "block" : "hidden"
-            } md:block md:flex-initial items-start text-content`}
+            } md:flex md:flex-initial items-start text-content`}
           >
             <div className="flex flex-col md:flex-row md:gap-x-20">
               <a href="/#Home">Home</a>
@@ -72,15 +77,17 @@ function NavBar() {
               </Link>
             </div>
           </div>
-          <div className="flex-initial items-center">
-            <div className="flex items-center justify-between">
+          <div className="flex-auto justify-between md:flex-initial">
+            <div className="flex justify-between items-center content-center">
               {/* SIGN IN */}
               <a className="text-gradient btn-link">Log In</a>
               <div className="hidden md:flex items-center">
                 <GoDotFill className="text-content mx-2" />
 
                 {/* SIGN UP */}
-                <button className="btn h-[48px] px-6 text-sm">Sign Up</button>
+                <Link to="/signup" onClick={toggleMobileMenu}>
+                  <button className="btn h-[48px] px-6 text-sm">Sign Up</button>
+                </Link>
               </div>
               <div className="inline ml-10 mr-5">
                 {/* TOGGLE */}
@@ -88,6 +95,7 @@ function NavBar() {
               </div>
             </div>
           </div>
+          {/* </div> */}
         </div>
       </div>
     </header>

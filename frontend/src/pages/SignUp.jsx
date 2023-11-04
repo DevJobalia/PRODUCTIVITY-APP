@@ -28,37 +28,69 @@
 {
   /* <div class="container flex items-center" id="nav"> */
 }
-import React from "react";
-import GirlWorking from "../../public/GirlWorking.jpg";
-import user from "../../public/user.svg";
+
+// https://www.youtube.com/watch?v=YFHuaOl7frk
+// https://github.com/QuickNuggets/multi-step-form/blob/master/src/components/steps/Account.js/
+import React, { useState } from "react";
+import GirlWorking from "/GirlWorking.jpg";
+import user from "/user.svg";
+import Progress from "../components/Register/Progress";
+import ProgressControl from "../components/Register/ProgressControl";
+
+import Presonal from "../components/Register/Steps/Presonal";
+import Account from "../components/Register/Steps/Account";
+import Final from "../components/Register/Steps/Final";
+
+import { UseContextProvider } from "../contexts/StepperContext";
 
 const SignUp = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const steps = ["Personal Information", "Account Setup", "Complete"];
+
+  const displayStep = (step) => {
+    switch (step) {
+      case 1:
+        return <Presonal />;
+      case 2:
+        return <Account />;
+      case 3:
+        return <Final />;
+      default:
+    }
+  };
+
+  const handleClick = (direction) => {
+    let newStep = currentStep;
+
+    direction === "next" ? newStep++ : newStep--;
+    // check if steps are within bounds
+    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+  };
+
   return (
     <div className="bg-[#afafaf] h-screen flex">
       <div className="w-2/3 h-full rounded-r-[500px] bg-bkg flex items-center justify-center">
         {/* Form Container */}
-        <div class="w-full pt-2 p-4">
-          <div class="mx-auto md:p-6 md:w-1/2">
-            {/* Username Input */}
-            <div class="mb-8">
-              <label for="username" class="block text-sm font-bold mb-2">
-                <span class="text-red-500">&nbsp;*</span> Username
-              </label>
-              <div class="mt-1 relative rounded-md shadow-sm">
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <img src={user} className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="username"
-                  class="input"
-                  placeholder="you@example.com"
-                />
-              </div>
-              <strong class="text-red-500 text-xs italic">
-                Username is required
-              </strong>
+        <div className="mx-auto rounded-2xl bg-white pb-2 shadow-xl md:w-1/2">
+          {/* Stepper */}
+          <div className="horizontal container mt-5 ">
+            <Progress steps={steps} currentStep={currentStep} />
+
+            <div className="my-10 p-10 ">
+              <UseContextProvider>
+                {displayStep(currentStep)}
+              </UseContextProvider>
             </div>
           </div>
+
+          {/* navigation button */}
+          {currentStep !== steps.length && (
+            <ProgressControl
+              handleClick={handleClick}
+              currentStep={currentStep}
+              steps={steps}
+            />
+          )}
         </div>
       </div>
       {/* Background Image */}

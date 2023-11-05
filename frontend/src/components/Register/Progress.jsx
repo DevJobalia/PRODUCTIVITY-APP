@@ -88,8 +88,10 @@ const Progress = ({ steps, currentStep }) => {
             )}
           </div>
           <div
-            className={`absolute top-0  text-center mt-16 w-32 text-xs font-medium uppercase ${
-              step.highlighted ? "text-gray-900" : "text-gray-400"
+            className={`absolute top-0  text-center mt-16 w-32 text-xs uppercase ${
+              step.highlighted
+                ? "text-green-600 font-bold"
+                : "text-gray-400 font-medium"
             }`}
           >
             {step.description}

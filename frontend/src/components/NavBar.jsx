@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../assets/Logo.png";
+import Logo from "/Logo.png";
 import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";

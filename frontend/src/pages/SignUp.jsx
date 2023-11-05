@@ -1,39 +1,13 @@
 // https://codepen.io/tikvarova/pen/eYJrexG
 
-{
-  /* <h1>Sign Up to PROductive</h1>
-          <p>First className </p>
-          <input type="text" />
-          <p>Last name</p>
-          <input type="text" name="" id="" />
-          <p>location</p>
-          <input type="text" name="" id="" />
-          <p>profile img</p>
-          <input type="file" name="" id="" />
-          <p>email</p>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="name@company.com"
-            required=""
-          />
-          <p>password</p>
-          <input type="text" name="" id="" />
-          <p>
-            submit already account? <a href="">login</a>
-          </p> */
-}
-{
-  /* <div class="container flex items-center" id="nav"> */
-}
-
-// https://www.youtube.com/watch?v=YFHuaOl7frk
+// UI INSPRIRED BY TWITTER
+// MULTISTEP FORM:
+// 1. https://www.youtube.com/watch?v=YFHuaOl7frk
 // https://github.com/QuickNuggets/multi-step-form/blob/master/src/components/steps/Account.js/
+// 2. https://www.youtube.com/watch?v=QSBc8bABwE0
+// 3. https://www.youtube.com/watch?v=uDCBSnWkuH0
 import React, { useState } from "react";
 import GirlWorking from "/GirlWorking.jpg";
-import user from "/user.svg";
 import Progress from "../components/Register/Progress";
 import ProgressControl from "../components/Register/ProgressControl";
 
@@ -96,14 +70,17 @@ const SignUp = () => {
           >
             Create Account
           </button>
-          <p className="text-sm mb-8">
-            By signing up, you agree to the Terms of Service and Privacy Policy,
-            including Cookie Use.
-          </p>
+          <div className="flex justify-center items-baseline">
+            <input type="checkbox" name="" id="" />
+            <p className="text-sm mb-8">
+              By signing up, you agree to the Terms of Service and Privacy
+              Policy, including Cookie Use.
+            </p>
+          </div>
 
           <p className="justify-center">
             Have an account already?{" "}
-            <Link to="/signup" className="text-blue-500">
+            <Link to="/signin" className="text-blue-500">
               Log in
             </Link>
           </p>

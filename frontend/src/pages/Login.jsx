@@ -30,7 +30,7 @@ const Login = () => {
             Back Home
           </a>
         </div>
-        <h2 className="mb-8">Sign In to Twitter</h2>
+        <h2 className="mb-8">Sign In to PROductive</h2>
         <button className="flex rounded-2xl p-2 bg-slate-100 text-black w-3/4 mb-8">
           <img src="/Google.png" alt="google" className="w-8" />
           Sign in with Google

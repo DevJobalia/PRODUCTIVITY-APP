@@ -1,9 +1,11 @@
 import express from "express";
-// import * as dotenv from "dotenv"; // to access enviorment variables
+import * as dotenv from "dotenv"; // to access enviorment variables
 // import cors from "cors";
 
+import connectDB from "./MONGODB/connect.js";
+
 // dotenv setup
-// dotenv.config(); // to pull our enviorment varibles from dotEnv file
+dotenv.config(); // to pull our enviorment varibles from dotEnv file
 
 // initialise express application
 const app = express();
@@ -23,7 +25,7 @@ app.get("/", async (req, res) => {
 // function to run server
 const startServer = async () => {
   try {
-    // connectDB(process.env.MONGODB_URL);
+    connectDB(process.env.MONGODB_URL);
     app.listen(3000, () => console.log("Server started on port 3000"));
   } catch (error) {
     console.log(error);

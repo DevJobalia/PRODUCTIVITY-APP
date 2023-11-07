@@ -1,98 +1,72 @@
 // ANIMATION: SMALL BIG: https://github.com/DevJobalia/React-Card-Animation
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+
 import { HiPlus } from "react-icons/hi";
 import { GoDotFill } from "react-icons/go";
-import { BsThreeDots } from "react-icons/bs";
+
 import { Link } from "react-router-dom";
+import TodoModal from "../components/TodoModal";
+import NavBar from "../components/NavBar";
+import TodoContent from "../components/TodoContent";
 
 function Todo() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
-      <div className="bg-bkg text-content isolate pt-20 min-h-screen">
+      {!modalOpen && <NavBar />}
+      <div
+        className={`bg-bkg isolate ${
+          modalOpen ? "" : "pt-10"
+        } min-h-screen p-5`}
+      >
         {/* todo frame */}
-        <div className="bg-teal-300 flex-col align-middle justify-center mt-10 max-w-6xl mx-auto rounded-md p-5">
+        <div className="bg-teal-300 flex-col align-middle justify-center mt-10 mx-auto rounded-md p-5 text-gray-700">
           {/* HEADER */}
           <div className="flex justify-between items-center w-full">
-            <h2 className="text-6xl font-bold text-content">
+            <h2 className="text-6xl font-bold">
               <span className="underline decoration-accent-1">todo</span>
             </h2>
-            <Link to="/newTask">
+            <button onClick={() => setModalOpen(true)}>
               <HiPlus className="w-10 h-10" />
-            </Link>
+            </button>
           </div>
           {/* MAIN CONTENT */}
-          <div className="bg-content mt-5 rounded-md flex text-bkg">
-            <div className="flex-initial w-1/3 bg-slate-100">
+          <div className="bg-content mt-5 rounded-md flex">
+            <div className="flex-initial w-1/6 bg-slate-100">
               <h1 className="font-primary font-bold text-center">Filters</h1>
-              <div className="flex items-center  ">
+              <div className="m-2 flex items-center rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-content">
                 <GoDotFill className="w-10 h-10 text-purple-400 place-content-center" />
                 Work
               </div>
-              <div className="flex items-center  ">
+              <div className="m-2 flex items-center rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-content">
                 <GoDotFill className="w-10 h-10 text-pink-400 place-content-center" />
                 Study
               </div>
-              <div className="flex items-center  ">
+              <div className="m-2 flex items-center rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-content">
                 <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
                 Entertainment
               </div>
-              <div className="flex items-center  ">
+              <div className="m-2 flex items-center rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-content">
                 <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />
                 Family
               </div>
-              <div className="flex items-center">
-                <input type="checkbox" name="" id="" className="mx-3 w-4 h-4" />
-                Hide Done Tasks
+              <div className="m-2 flex">
+                <select className="w w-full flex items-center rounded-2xl p-3 border-2 border-slate-100 bg-bkg text-content">
+                  <option value="incomplete">Incomplete</option>
+                  <option value="complete">Complete</option>
+                </select>
               </div>
             </div>
             {/* TASKS */}
-            <div className="flex-initial w-2/3 bg-slate-200">
+            <div className="flex-initial w-5/6 bg-slate-200">
               {/* <h1 className="font-primary font-bold text-center">Task</h1> */}
               <div className=" grid grid-cols-2 gap-6 p-6">
-                <motion.div
-                  transition={{ layout: { duration: 1, type: "spring" } }}
-                  layout
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="bg-orange-100 rounded-md p-2"
-                >
-                  <div className="flex justify-between items-center font-bold mb-2">
-                    <motion.h2 layout="position" h2>
-                      The first task title
-                    </motion.h2>
-                    <BsThreeDots className="place-content-center" />
-                  </div>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 1 }}
-                    >
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Nesciunt, minima?
-                      <div className="flex justify-between items-center font-bold mt-2">
-                        <div className="flex">
-                          <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
-                          <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />
-                        </div>
-                        <div>
-                          <input
-                            type="checkbox"
-                            name=""
-                            id=""
-                            className="mx-1 w-3 h-3"
-                          />
-                          Done
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </motion.div>
+                <TodoContent />
               </div>
             </div>
           </div>
         </div>
+        <TodoModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
       </div>
     </>
   );

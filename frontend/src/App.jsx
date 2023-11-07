@@ -26,9 +26,9 @@ function App() {
           <Route
             path="/todo"
             element={
-              <Layout>
-                <Todo />
-              </Layout>
+              // <Layout>
+              <Todo />
+              // </Layout>
             }
           />
           <Route

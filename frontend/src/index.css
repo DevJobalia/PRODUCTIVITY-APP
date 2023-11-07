@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Modal */
+.modal {
+  @apply fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/80 flex justify-center items-center;
+}
+
+.modal_wrapper {
+  @apply flex justify-start items-center flex-col h-[75%] w-3/4 bottom-0 bg-white rounded-3xl  overflow-hidden;
+}
+
+/* .wrapper {
+  width: 100%;
+  height: 100%;
+}
+.container {
+  background-color: var(--bg-2);
+  max-width: 500px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 8px;
+  position: relative; 
+}*/
+
 .input {
   display: block;
 

@@ -5,9 +5,9 @@ import { HiPlus } from "react-icons/hi";
 import { GoDotFill } from "react-icons/go";
 
 import { Link } from "react-router-dom";
-import TodoModal from "../components/TodoModal";
+import TodoModal from "../components/TODO/TodoModal";
 import NavBar from "../components/NavBar";
-import TodoContent from "../components/TodoContent";
+import TodoContent from "../components/TODO/TodoContent";
 
 function Todo() {
   const [modalOpen, setModalOpen] = useState(false);

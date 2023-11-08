@@ -12,12 +12,11 @@ dotenv.config(); // to pull our enviorment varibles from dotEnv file
 const app = express();
 // add additional middleware
 app.use(
-  cors()
-  // {
-  //   origin: "http://localhost:5173/",
-  //   methods: "GET,POST",
-  //   allowedHeaders: "Content-Type,Authorization",
-  // }
+  cors({
+    origin: "http://localhost:5173",
+    methods: "GET,POST",
+    allowedHeaders: "Content-Type,Authorization",
+  })
 );
 
 app.use(express.json({ limit: "50mb" }));

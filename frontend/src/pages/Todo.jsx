@@ -1,5 +1,5 @@
 // ANIMATION: SMALL BIG: https://github.com/DevJobalia/React-Card-Animation
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { HiPlus } from "react-icons/hi";
 import { GoDotFill } from "react-icons/go";
@@ -9,8 +9,45 @@ import TodoModal from "../components/TODO/TodoModal";
 import NavBar from "../components/NavBar";
 import TodoContent from "../components/TODO/TodoContent";
 
+const RenderCards = ({ data, title }) => {
+  if (data?.length > 0) {
+    return data.map((post) => (
+      // console.log(post);
+      <TodoContent key={post._id} {...post} />
+    ));
+  }
+  return (
+    <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">{title}</h2>
+  );
+};
+
 function Todo() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [allPosts, setAllPosts] = useState(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/v1/post", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("RETRIEVE DATA", result);
+          setAllPosts(result.data.reverse());
+        }
+      } catch (error) {
+        alert(error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <>
       {!modalOpen && <NavBar />}
@@ -61,7 +98,7 @@ function Todo() {
             <div className="flex-initial w-5/6 bg-slate-200">
               {/* <h1 className="font-primary font-bold text-center">Task</h1> */}
               <div className=" grid grid-cols-2 gap-6 p-6">
-                <TodoContent />
+                <RenderCards data={allPosts} title="No posts found" />
               </div>
             </div>
           </div>

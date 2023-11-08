@@ -4,8 +4,30 @@ import { GoDotFill } from "react-icons/go";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 
-const TodoContent = () => {
+const options = [
+  {
+    label: "Work",
+    icon: <GoDotFill className="w-10 h-10 text-purple-400" />,
+  },
+  {
+    label: "Study",
+    icon: <GoDotFill className="w-10 h-10 text-pink-400" />,
+  },
+  {
+    label: "Entertainment",
+    icon: <GoDotFill className="w-10 h-10 text-red-400" />,
+  },
+  {
+    label: "Family",
+    icon: <GoDotFill className="w-10 h-10 text-green-400" />,
+  },
+];
+
+const TodoContent = ({ title, description, status, tags }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const matchingOptions = options.filter((option) =>
+    tags.includes(option.label)
+  );
   return (
     <motion.div
       transition={{ layout: { duration: 1, type: "spring" } }}
@@ -15,7 +37,7 @@ const TodoContent = () => {
     >
       <div className="flex justify-between items-center font-bold mb-2">
         <motion.h2 layout="position" h2>
-          The first task title
+          {title}
         </motion.h2>
         <BsThreeDots className="place-content-center" />
       </div>
@@ -25,12 +47,15 @@ const TodoContent = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt,
-          minima?
+          {description}
           <div className="flex justify-between items-center font-bold mt-2">
             <div className="flex">
-              <GoDotFill className="w-10 h-10 text-red-400 place-content-center" />
-              <GoDotFill className="w-10 h-10 text-green-400 place-content-center" />
+              {matchingOptions.map((option, index) => (
+                <div key={index} className="flex items-center mr-2">
+                  {option.icon}
+                  {option.label}
+                </div>
+              ))}
             </div>
             <div className="flex">
               <div

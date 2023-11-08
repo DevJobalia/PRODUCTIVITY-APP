@@ -2,6 +2,7 @@
 
 import express from "express";
 import * as dotenv from "dotenv";
+import mongoose from "mongoose";
 
 import Post from "../MONGODB/MODELS/TodoTask.js";
 
@@ -38,6 +39,22 @@ router.route("/").post(async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(itemId)) {
+      return res.status(400).json({ error: "Invalid item ID" });
+    }
+    // Use the Mongoose model to delete the item
+    await Post.findByIdAndDelete(itemId);
+    res.json({ message: "Item deleted successfully" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the item" });
   }
 });
 

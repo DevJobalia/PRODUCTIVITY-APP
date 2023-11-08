@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { GoDotFill } from "react-icons/go";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const options = [
   {
@@ -23,23 +25,47 @@ const options = [
   },
 ];
 
-const TodoContent = ({ title, description, status, tags }) => {
+const TodoContent = ({
+  _id,
+  title,
+  description,
+  status,
+  tags,
+  setTaskDeleted,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const matchingOptions = options.filter((option) =>
     tags.includes(option.label)
   );
+
+  const handleDelete = async () => {
+    try {
+      // Send a DELETE request to your server's delete endpoint
+      await axios.delete(`http://localhost:3000/api/v1/post/${_id}`);
+      // Handle success, e.g., remove the item from your component's state
+      toast.success("Task Deleted Successfully");
+      setTaskDeleted(true);
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error("Error deleting item", error);
+      toast.error("Error During Deletion");
+    }
+  };
+
   return (
     <motion.div
       transition={{ layout: { duration: 1, type: "spring" } }}
       layout
-      onClick={() => setIsOpen(!isOpen)}
       className="bg-orange-100 rounded-md p-2"
     >
       <div className="flex justify-between items-center font-bold mb-2">
         <motion.h2 layout="position" h2>
           {title}
         </motion.h2>
-        <BsThreeDots className="place-content-center" />
+        <BsThreeDots
+          className="place-content-center"
+          onClick={() => setIsOpen(!isOpen)}
+        />
       </div>
       {isOpen && (
         <motion.div
@@ -60,7 +86,7 @@ const TodoContent = ({ title, description, status, tags }) => {
             <div className="flex">
               <div
                 className="flex items-center justify-center bg-gray-300 text-gray-500 h-8 w-8 rounded-md"
-                //    onClick={handleDelete}
+                onClick={handleDelete}
               >
                 <MdDelete className="w-7 h-7" />
               </div>

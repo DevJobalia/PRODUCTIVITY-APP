@@ -9,11 +9,11 @@ import TodoModal from "../components/TODO/TodoModal";
 import NavBar from "../components/NavBar";
 import TodoContent from "../components/TODO/TodoContent";
 
-const RenderCards = ({ data, title }) => {
+const RenderCards = ({ data, title, setTaskDeleted }) => {
   if (data?.length > 0) {
     return data.map((post) => (
       // console.log(post);
-      <TodoContent key={post._id} {...post} />
+      <TodoContent key={post._id} {...post} setTaskDeleted={setTaskDeleted} />
     ));
   }
   return (
@@ -24,6 +24,7 @@ const RenderCards = ({ data, title }) => {
 function Todo() {
   const [modalOpen, setModalOpen] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
+  const [taskDeleted, setTaskDeleted] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,7 +47,7 @@ function Todo() {
     };
 
     fetchPosts();
-  }, []);
+  }, [taskDeleted]);
 
   return (
     <>
@@ -98,7 +99,11 @@ function Todo() {
             <div className="flex-initial w-5/6 bg-slate-200">
               {/* <h1 className="font-primary font-bold text-center">Task</h1> */}
               <div className=" grid grid-cols-2 gap-6 p-6">
-                <RenderCards data={allPosts} title="No posts found" />
+                <RenderCards
+                  data={allPosts}
+                  title="No posts found"
+                  setTaskDeleted={setTaskDeleted}
+                />
               </div>
             </div>
           </div>

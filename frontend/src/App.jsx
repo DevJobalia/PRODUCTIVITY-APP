@@ -8,6 +8,7 @@ import AddTask from "./pages/AddTask";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Layout from "./Layout";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -59,6 +60,10 @@ function App() {
           <Route path="/signin" element={<Login />} />
         </Routes>
       </Router>
+      <Toaster
+        // position="bottom-right"
+        toastOptions={{ style: { fontSize: "1.4rem" } }}
+      />
     </>
   );
 }

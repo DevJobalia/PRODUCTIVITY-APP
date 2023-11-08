@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { GoDotFill } from "react-icons/go";
 import { BsThreeDots } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const options = [
   {
@@ -84,18 +85,19 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
         const responseData = await response.json();
 
         console.log("Form submitted successfully:", responseData);
+        toast.success("Task Added Successfully");
         setModalOpen(false);
       } else {
         // Handle non-successful response (e.g., 4xx or 5xx HTTP status codes)
         const errorData = await response.json(); // Parse the error response
         console.error("Error in response:", errorData);
 
-        // showToast("Error submitting the form. Please try again.");
+        toast.error("Error submitting the form. Please try again.");
       }
     } catch (error) {
       // Handle network or other unexpected errors
       console.error("ERROR UPLOADING:", error);
-      // showToast("An unexpected error occurred. Please try again later.");
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 

@@ -62,9 +62,15 @@ const TodoContent = ({
     <motion.div
       transition={{ layout: { duration: 1, type: "spring" } }}
       layout
-      className="bg-orange-100 rounded-md p-2 h-fit"
+      className={`${
+        status === "complete" ? "bg-green-400" : "bg-orange-100"
+      } rounded-md p-2 h-fit`}
     >
-      <div className="flex justify-between items-center font-bold mb-2">
+      <div
+        className={`flex justify-between items-center font-bold mb-2 ${
+          status === "complete" ? "line-through text-gray-600" : ""
+        }`}
+      >
         <motion.h2 layout="position" h2>
           {title}
         </motion.h2>

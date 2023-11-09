@@ -1,11 +1,12 @@
 // ANIMATION: SMALL BIG: https://github.com/DevJobalia/React-Card-Animation
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { GoDotFill } from "react-icons/go";
 import { BsThreeDots } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const options = [
   {
@@ -26,9 +27,23 @@ const options = [
   },
 ];
 
-const TodoModal = ({ modalOpen, setModalOpen }) => {
+const TodoModal = ({ modalOpen, setModalOpen, type, todo, setTaskUpdated }) => {
   const overlay = useRef(null);
   const wrapper = useRef(null);
+
+  useEffect(() => {
+    if (type === "update") {
+      setForm(todo);
+    } else {
+      setForm({
+        title: "Task Title",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, minima?",
+        status: "incomplete",
+        tags: [],
+      });
+    }
+  }, [type, todo, modalOpen]);
 
   const handleClick = useCallback(
     (e) => {
@@ -72,32 +87,46 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
     e.preventDefault();
 
     console.log(form);
-    try {
-      const response = await fetch("http://localhost:3000/api/v1/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+    if (type === "add") {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/v1/post",
+          form
+        );
 
-      if (response.ok) {
-        const responseData = await response.json();
-
-        console.log("Form submitted successfully:", responseData);
+        console.log("Form submitted successfully:", response.data);
         toast.success("Task Added Successfully");
+
+        setTaskUpdated(true);
         setModalOpen(false);
-      } else {
+      } catch (error) {
         // Handle non-successful response (e.g., 4xx or 5xx HTTP status codes)
-        const errorData = await response.json(); // Parse the error response
-        console.error("Error in response:", errorData);
+        if (error.response && error.response.data) {
+          console.error("Error in response:", error.response.data);
+        } else {
+          console.error("Error in response:", error.message);
+        }
 
         toast.error("Error submitting the form. Please try again.");
       }
-    } catch (error) {
-      // Handle network or other unexpected errors
-      console.error("ERROR UPLOADING:", error);
-      toast.error("An unexpected error occurred. Please try again later.");
+    }
+
+    if (type === "update") {
+      try {
+        const response = await axios.put(
+          `http://localhost:3000/api/v1/post/${todo._id}`,
+          form
+        );
+
+        console.log("Task updated:", response.data);
+        toast.success("Task Updated Successfully");
+
+        setTaskUpdated(true);
+        setModalOpen(false);
+      } catch (error) {
+        toast.error("Error updating the task. Please try again.");
+        console.error("Error updating task:", error.response.data);
+      }
     }
   };
 
@@ -126,8 +155,8 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
               <h1>Title</h1>
               <input
                 onChange={(e) => handleChange(e)}
+                value={form.title}
                 type="text"
-                placeholder="Task Title"
                 name="title"
                 className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-500"
                 required
@@ -136,9 +165,9 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
               <h1>Description</h1>
               <input
                 onChange={(e) => handleChange(e)}
+                value={form.description}
                 type="text"
                 name="description"
-                placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, minima?"
                 className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-500"
               />
               <h1>Status</h1>
@@ -146,6 +175,7 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
                 className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-500"
                 onChange={(e) => handleChange(e)}
                 name="status"
+                value={form.status}
               >
                 <option value="incomplete">Incomplete</option>
                 <option value="complete">Complete</option>

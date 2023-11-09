@@ -5,6 +5,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import axios from "axios";
 import toast from "react-hot-toast";
+import TodoModal from "./TodoModal";
 
 const options = [
   {
@@ -31,9 +32,10 @@ const TodoContent = ({
   description,
   status,
   tags,
-  setTaskDeleted,
+  setTaskUpdated,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const matchingOptions = options.filter((option) =>
     tags.includes(option.label)
   );
@@ -44,7 +46,7 @@ const TodoContent = ({
       await axios.delete(`http://localhost:3000/api/v1/post/${_id}`);
       // Handle success, e.g., remove the item from your component's state
       toast.success("Task Deleted Successfully");
-      setTaskDeleted(true);
+      setTaskUpdated(true);
     } catch (error) {
       // Handle any errors that occur during the request
       console.error("Error deleting item", error);
@@ -52,11 +54,15 @@ const TodoContent = ({
     }
   };
 
+  const handleUpdate = async () => {
+    setModalOpen(true);
+  };
+
   return (
     <motion.div
       transition={{ layout: { duration: 1, type: "spring" } }}
       layout
-      className="bg-orange-100 rounded-md p-2"
+      className="bg-orange-100 rounded-md p-2 h-fit"
     >
       <div className="flex justify-between items-center font-bold mb-2">
         <motion.h2 layout="position" h2>
@@ -92,7 +98,7 @@ const TodoContent = ({
               </div>
               <div
                 className="flex ml-2 items-center justify-center bg-gray-300 text-gray-500 h-8 w-8 rounded-md"
-                //    onClick={handleEdit}
+                onClick={handleUpdate}
               >
                 <MdEdit className="w-7 h-7" />
               </div>
@@ -100,6 +106,13 @@ const TodoContent = ({
           </div>
         </motion.div>
       )}
+      <TodoModal
+        type="update"
+        todo={{ _id, title, description, status, tags }}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        setTaskUpdated={setTaskUpdated}
+      />
     </motion.div>
   );
 };

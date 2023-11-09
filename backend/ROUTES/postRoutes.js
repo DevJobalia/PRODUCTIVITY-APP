@@ -58,4 +58,22 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const taskId = req.params.id;
+  const { title, description, status, tags } = { ...req.body };
+
+  try {
+    const updatedTask = await Post.findByIdAndUpdate(
+      taskId,
+      { title, description, status, tags },
+      { new: true } // To return the updated document
+    );
+
+    res.status(200).json(updatedTask);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error updating task" });
+  }
+});
+
 export default router;

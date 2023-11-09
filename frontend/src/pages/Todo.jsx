@@ -9,11 +9,11 @@ import TodoModal from "../components/TODO/TodoModal";
 import NavBar from "../components/NavBar";
 import TodoContent from "../components/TODO/TodoContent";
 
-const RenderCards = ({ data, title, setTaskDeleted }) => {
+const RenderCards = ({ data, title, setTaskUpdated }) => {
   if (data?.length > 0) {
     return data.map((post) => (
       // console.log(post);
-      <TodoContent key={post._id} {...post} setTaskDeleted={setTaskDeleted} />
+      <TodoContent key={post._id} {...post} setTaskUpdated={setTaskUpdated} />
     ));
   }
   return (
@@ -24,7 +24,7 @@ const RenderCards = ({ data, title, setTaskDeleted }) => {
 function Todo() {
   const [modalOpen, setModalOpen] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
-  const [taskDeleted, setTaskDeleted] = useState(false);
+  const [taskUpdated, setTaskUpdated] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -43,11 +43,13 @@ function Todo() {
         }
       } catch (error) {
         alert(error);
+      } finally {
+        setTaskUpdated(false);
       }
     };
 
     fetchPosts();
-  }, [taskDeleted]);
+  }, [taskUpdated]);
 
   return (
     <>
@@ -102,13 +104,18 @@ function Todo() {
                 <RenderCards
                   data={allPosts}
                   title="No posts found"
-                  setTaskDeleted={setTaskDeleted}
+                  setTaskUpdated={setTaskUpdated}
                 />
               </div>
             </div>
           </div>
         </div>
-        <TodoModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <TodoModal
+          type="add"
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          setTaskUpdated={setTaskUpdated}
+        />
       </div>
     </>
   );

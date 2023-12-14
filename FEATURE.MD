@@ -9,3 +9,4 @@
 - Infinite Loading
 - Progress bar in blogs
 - Work with react-hook-form
+- YUP VALIDATION

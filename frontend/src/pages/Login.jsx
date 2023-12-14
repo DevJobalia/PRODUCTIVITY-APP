@@ -2,16 +2,26 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import user from "/user.svg";
 import eye from "/eye.svg";
 import GirlWorking from "/GirlWorking.jpg";
+
+const schema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required"),
+});
 
 const Login = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data) => {
     console.log(data); // Handle form submission logic here
@@ -59,7 +69,7 @@ const Login = () => {
         <form className="w-3/4" onSubmit={handleSubmit(onSubmit)}>
           {/* Username Input */}
           <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none fixed">
               <img src={user} alt="" className="h-5 w-5 text-gray-400" />
             </div>
             <Controller
@@ -67,12 +77,14 @@ const Login = () => {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  placeholder="Phone, email or username"
-                  className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg focus:text-gray-600 text-slate-100 text-center"
-                />
+                <div>
+                  <input
+                    {...field}
+                    type="text"
+                    placeholder="Phone, email or username"
+                    className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg focus:text-gray-600 text-slate-100 text-center"
+                  />
+                </div>
               )}
             />
           </div>
@@ -99,6 +111,9 @@ const Login = () => {
               )}
             />
           </div>
+          <strong className="text-red-500 text-xs italic">
+            {errors.password?.message}
+          </strong>
 
           <button
             className="rounded-2xl p-2 bg-slate-100 text-black w-full mb-8 text-center"

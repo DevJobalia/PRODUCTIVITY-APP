@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Add other global styles here */
+}
+
 /* Modal */
 .modal {
   @apply fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/80 flex justify-center items-center;

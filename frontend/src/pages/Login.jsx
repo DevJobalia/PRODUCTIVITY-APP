@@ -1,15 +1,26 @@
 // https://codepen.io/tikvarova/pen/eYJrexG
 import React from "react";
-import GirlWorking from "/GirlWorking.jpg";
+import { useForm, Controller } from "react-hook-form";
+import { Link } from "react-router-dom";
 import user from "/user.svg";
 import eye from "/eye.svg";
-import { Link } from "react-router-dom";
+import GirlWorking from "/GirlWorking.jpg";
 
 const Login = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data); // Handle form submission logic here
+  };
+
   return (
-    <div className="bg-[#afafaf] h-screen flex">
+    <div className="bg-[#afafaf] h-screen flex overflow-hidden">
       {/* Form Container */}
-      <div className="w-3/5 my-auto mx-auto md:mx-10 rounded-2xl bg-bkg shadow-xl flex flex-col items-center">
+      <div className="w-5/6 my-auto mx-auto overflow-y-scroll md:my-5 md:mx-20 max-h-screen rounded-2xl bg-bkg shadow-xl flex flex-col items-center sm:overflow-hidden sm:w-3/5">
         <div class="flex flex-wrap justify-between w-3/4">
           <img src="/Logo.png" alt="productivity" className="w-20" />
           <a
@@ -45,38 +56,54 @@ const Login = () => {
           <hr className="w-full my-4 border-t-2 border-gray-300" />
         </div>
 
-        <form className="w-3/4">
+        <form className="w-3/4" onSubmit={handleSubmit(onSubmit)}>
           {/* Username Input */}
-          {/* <div class="mb-8"> */}
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
               <img src={user} alt="" className="h-5 w-5 text-gray-400" />
             </div>
-            <input
-              type="text"
-              placeholder="Phone, email or username"
-              className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-100 text-center"
+            <Controller
+              name="username"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  placeholder="Phone, email or username"
+                  className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg focus:text-gray-600 text-slate-100 text-center"
+                />
+              )}
             />
           </div>
-          <strong class="text-red-500 text-xs italic">
-            Username is required
+          <strong className="text-red-500 text-xs italic">
+            {errors.username?.message}
           </strong>
-          {/* </div> */}
 
           {/* Password Input */}
-
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
               <img src={eye} alt="" className="h-5 w-5 text-gray-400" />
             </div>
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-100 text-center"
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="password"
+                  placeholder="Password"
+                  className="w-full my-4 flex rounded-2xl p-2 border-2 border-slate-100 bg-bkg focus:text-gray-600 text-slate-100 text-center"
+                />
+              )}
             />
           </div>
 
-          <button className="rounded-2xl p-2 bg-slate-100 text-black w-full mb-8 text-center">
+          <button
+            className="rounded-2xl p-2 bg-slate-100 text-black w-full mb-8 text-center"
+            type="submit"
+          >
             Login
           </button>
         </form>
@@ -92,11 +119,9 @@ const Login = () => {
       </div>
 
       {/* Background Image */}
-      <img
-        src={GirlWorking}
-        alt="img"
-        className="w-1/3 h-full object-contain"
-      />
+      <div className="w-1/3 hidden h-full sm:flex ">
+        <img src={GirlWorking} alt="img" className="object-contain" />
+      </div>
     </div>
   );
 };

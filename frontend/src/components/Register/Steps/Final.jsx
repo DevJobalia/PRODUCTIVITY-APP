@@ -1,4 +1,15 @@
+import { useNavigate } from "react-router-dom";
+import { useStepperContext } from "../../../contexts/StepperContext";
+
 export default function Final() {
+  const navigate = useNavigate();
+  const { userData, setUserData } = useStepperContext();
+
+  function onSubmit() {
+    console.log("USER / PAGE DATA", userData);
+    // navigate("/")
+  }
+
   return (
     <div className="container md:mt-10">
       <div className="flex flex-col items-center">
@@ -29,11 +40,14 @@ export default function Final() {
         <div className="text-lg font-semibold text-gray-500">
           Your Account has been created.
         </div>
-        <a className="mt-10" href="/">
-          <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
-            Close
-          </button>
-        </a>
+        {/* <a className="mt-10" href="/"> */}
+        <button
+          className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100"
+          onClick={onSubmit}
+        >
+          Close
+        </button>
+        {/* </a> */}
       </div>
     </div>
   );

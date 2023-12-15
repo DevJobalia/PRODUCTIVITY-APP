@@ -1,11 +1,12 @@
 import { useStepperContext } from "../..//../contexts/StepperContext";
 
-export default function Account() {
+export default function Account({ setPersonalData }) {
   const { userData, setUserData } = useStepperContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+    setPersonalData((prevData) => ({ ...prevData, [name]: value }));
   };
   return (
     <div className="flex flex-col ">
@@ -32,8 +33,8 @@ export default function Account() {
           <input
             onChange={handleChange}
             type="email"
-            value={userData["address"] || ""}
-            name="address"
+            value={userData["email"] || ""}
+            name="email"
             placeholder="email@gmail.com"
             className="p-1 px-2 appearance-none outline-none w-full text-gray-800"
           />

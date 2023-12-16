@@ -1,5 +1,3 @@
-// SHARE AI GENERATED IMG TO OUR WEBSITE COMMUNITY
-
 import express from "express";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";

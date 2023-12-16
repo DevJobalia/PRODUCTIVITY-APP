@@ -3,7 +3,8 @@ import * as dotenv from "dotenv"; // to access enviorment variables
 import cors from "cors";
 
 import connectDB from "./MONGODB/connect.js";
-import postRoutes from "./ROUTES/postRoutes.js";
+import todoRoutes from "./ROUTES/todoRoutes.js";
+import accountRoutes from "./ROUTES/accountRoutes.js";
 
 // dotenv setup
 dotenv.config(); // to pull our enviorment varibles from dotEnv file
@@ -22,8 +23,8 @@ app.use(
 app.use(express.json({ limit: "50mb" }));
 
 // // API ENDPOINTS: to connect our front end side
-app.use("/api/v1/post", postRoutes);
-// app.use("/api/v1/dalle", dalleRoutes);
+app.use("/api/v1/post", todoRoutes);
+app.use("/api/v1/account", accountRoutes);
 
 // // ROUTE
 app.get("/", async (req, res) => {

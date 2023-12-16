@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useStepperContext } from "../../../contexts/StepperContext";
+import { registerUser } from "../../../utils/API CALLS";
+import toast from "react-hot-toast";
 
 export default function Final() {
   const navigate = useNavigate();
@@ -7,7 +9,15 @@ export default function Final() {
 
   function onSubmit() {
     console.log("USER / PAGE DATA", userData);
-    // navigate("/")
+    let registerPromise = registerUser(userData);
+
+    // Use toast.promise with the registerPromise
+    toast.promise(registerPromise, {
+      loading: "Creating...",
+      success: <b>Register Successfully</b>,
+      error: <b>Could not register</b>,
+    });
+    registerPromise.then(() => navigate("/signin"));
   }
 
   return (

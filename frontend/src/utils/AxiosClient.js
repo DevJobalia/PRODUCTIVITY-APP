@@ -3,7 +3,7 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_REACT_APP_SERVER_DOMAIN;
 const USER_ID = 123;
 
-export default axiosClient = axios.create({
+const AxiosClient = axios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json",
@@ -11,3 +11,5 @@ export default axiosClient = axios.create({
   },
   timeout: 5000,
 });
+
+export default AxiosClient;

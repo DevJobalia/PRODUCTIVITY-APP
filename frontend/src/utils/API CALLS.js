@@ -12,3 +12,17 @@ export async function registerUser(credentials) {
     return Promise.reject({ error });
   }
 }
+
+export async function login({ username, password }) {
+  try {
+    if (username && password) {
+      const { data } = await AxiosClient.post("/api/v1/account/login", {
+        username,
+        password,
+      });
+      return Promise.resolve({ data });
+    }
+  } catch (error) {
+    return Promise.reject({ error: "Password doesn't Match" });
+  }
+}

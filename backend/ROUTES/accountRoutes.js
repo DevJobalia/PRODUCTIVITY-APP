@@ -10,5 +10,6 @@ const router = Router();
 
 // CREATE NEW USER
 router.route("/register").post(controller.register);
+router.route("/login").post(controller.login);
 
 export default router;

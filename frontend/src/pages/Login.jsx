@@ -4,10 +4,12 @@ import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 
 import user from "/user.svg";
 import eye from "/eye.svg";
 import GirlWorking from "/GirlWorking.jpg";
+import { login } from "../utils/API CALLS";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -24,7 +26,24 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data); // Handle form submission logic here
+    console.log(data.username); // Handle form submission logic here
+
+    let loginPromise = login({
+      username: data.username,
+      password: data.password,
+    });
+    toast.promise(loginPromise, {
+      loading: "Checking!",
+      success: <b>Login Successful</b>,
+      error: <b>Password Not Match</b>,
+    });
+
+    loginPromise.then((res) => {
+      // res = token
+      let { token } = res.data;
+      localStorage.setItem("token", token);
+      navigate("/profile");
+    });
   };
 
   return (

@@ -75,7 +75,7 @@ export async function login(req, res) {
             expirationDate.setDate(expirationDate.getDate() + 5); // Set expiration to 5 days from now
 
             res.cookie("JWT", token, {
-              // httpOnly: true,
+              httpOnly: true,
               maxAge: 900000,
               // expires: expirationDate,
               // secure: true, // Set to true if serving over HTTPS

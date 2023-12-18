@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "/Logo.png";
 import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
@@ -10,6 +10,12 @@ function NavBar() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    // const token = await localStorage.getItem('token');
+  }, []);
 
   return (
     <header className="fixed z-50 w-full p-5 lg:py-1 bg-bkg">
@@ -79,6 +85,7 @@ function NavBar() {
           </div>
           <div className="flex-auto justify-between md:flex-initial">
             <div className="flex justify-between items-center content-center">
+              {/* () */}
               {/* SIGN IN */}
               <a className="text-gradient btn-link" href="/signin">
                 Log In

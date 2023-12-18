@@ -5,7 +5,8 @@ export async function registerUser(credentials) {
   try {
     const response = await AxiosClient.post(
       "/api/v1/account/register",
-      credentials
+      credentials,
+      { withCredentials: true }
     );
     return Promise.resolve(response.data.msg);
   } catch (error) {
@@ -14,6 +15,7 @@ export async function registerUser(credentials) {
 }
 
 export async function login({ username, password }) {
+  console.log(password);
   try {
     if (username && password) {
       const { data } = await AxiosClient.post("/api/v1/account/login", {

@@ -55,7 +55,6 @@ export async function login(req, res) {
     userModel
       .findOne({ username })
       .then((user) => {
-        console.log(username);
         bcrypt
           .compare(password, user.password)
           .then((passwordCheck) => {
@@ -71,11 +70,23 @@ export async function login(req, res) {
               process.env.JWT_SECRET,
               { expiresIn: "24h" }
             );
+            console.log("BEFORE,", token);
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 5); // Set expiration to 5 days from now
 
+            res.cookie("JWT", token, {
+              // httpOnly: true,
+              maxAge: 900000,
+              // expires: expirationDate,
+              // secure: true, // Set to true if serving over HTTPS
+              // sameSite: "None", // Adjust SameSite attribute based on your needs
+              // path: "/",
+            });
+            console.log("after,", token);
             return res.status(200).send({
               msg: "Login Successful...!",
               username: user.username,
-              token,
+              loggedIn: true,
             });
           })
           .catch((error) => {

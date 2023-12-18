@@ -1,7 +1,7 @@
 // https://codepen.io/tikvarova/pen/eYJrexG
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -26,24 +27,40 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data.username); // Handle form submission logic here
+    console.log(data); // Handle form submission logic here
 
     let loginPromise = login({
       username: data.username,
       password: data.password,
     });
-    toast.promise(loginPromise, {
-      loading: "Checking!",
-      success: <b>Login Successful</b>,
-      error: <b>Password Not Match</b>,
-    });
+    toast.promise(
+      loginPromise,
+      {
+        loading: "Loading",
+        success: (data) => `Successfully saved ${data}`,
+        error: (err) => `Error: ${err.error}`,
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+        success: {
+          duration: 5000,
+          icon: "🔥",
+        },
+      }
+    );
 
-    loginPromise.then((res) => {
-      // res = token
-      let { token } = res.data;
-      localStorage.setItem("token", token);
-      navigate("/profile");
-    });
+    loginPromise
+      .then((res) => {
+        // res = token
+        // let { token } = res.data;
+        // localStorage.setItem("token", token);
+        // navigate("/profile");
+        console.log(res);
+        // console.log();
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

@@ -11,13 +11,20 @@ import Layout from "./Layout";
 import { Toaster } from "react-hot-toast";
 import PageNotFound from "./pages/PageNotFound";
 import { ProtectRoute } from "./middleware/auth";
+import { getCookie } from "./utils/Cookie";
+import Dashboard from "./pages/Dashboard";
+
+const isLoggedIn = getCookie("loggedInUser");
+console.log(isLoggedIn);
 
 const router = createBrowserRouter([
   // <NavBar />
 
   {
     path: "/",
-    element: (
+    element: isLoggedIn ? (
+      <Dashboard />
+    ) : (
       <Layout>
         <Home />
       </Layout>

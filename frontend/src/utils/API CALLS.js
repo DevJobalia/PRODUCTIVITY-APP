@@ -24,6 +24,7 @@ export async function login({ username, password }) {
         username,
         password,
       });
+      console.log(data);
       return Promise.resolve({ data });
     }
   } catch (error) {

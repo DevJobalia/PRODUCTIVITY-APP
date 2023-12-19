@@ -72,12 +72,11 @@ export async function login(req, res) {
               { expiresIn: "24h" }
             );
             console.log("BEFORE,", token);
-            const expirationDate = new Date();
-            expirationDate.setDate(expirationDate.getDate() + 5); // Set expiration to 5 days from now
+            const oneDayInMillis = 24 * 60 * 60 * 1000;
 
             res.cookie("JWT", token, {
               httpOnly: true,
-              maxAge: 900000,
+              maxAge: oneDayInMillis,
               domain: "localhost",
               path: "/",
               // expires: expirationDate,
@@ -89,7 +88,6 @@ export async function login(req, res) {
             return res.status(200).send({
               msg: "Login Successful...!",
               username: user.username,
-              loggedIn: true,
             });
           })
           .catch((error) => {

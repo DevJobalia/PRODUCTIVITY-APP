@@ -4,6 +4,21 @@ import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
 
+const getCookie = (name) => {
+  const cookieString = document.cookie;
+  const cookies = cookieString.split(";");
+
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split("=").map((s) => s.trim());
+
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+
+  return null; // Return null if the cookie is not found
+};
+
 function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -15,6 +30,7 @@ function NavBar() {
 
   useEffect(() => {
     // const token = await localStorage.getItem('token');
+    setToken(getCookie("loggedInUser"));
   }, []);
 
   return (
@@ -84,25 +100,37 @@ function NavBar() {
             </div>
           </div>
           <div className="flex-auto justify-between md:flex-initial">
-            <div className="flex justify-between items-center content-center">
-              {/* () */}
-              {/* SIGN IN */}
-              <a className="text-gradient btn-link" href="/signin">
-                Log In
-              </a>
-              <div className="hidden md:flex items-center">
-                <GoDotFill className="text-content mx-2" />
+            {!token ? (
+              <div className="flex justify-between items-center content-center">
+                {/* SIGN IN */}
+                <a className="text-gradient btn-link" href="/signin">
+                  Log In
+                </a>
+                <div className="hidden md:flex items-center">
+                  <GoDotFill className="text-content mx-2" />
 
-                {/* SIGN UP */}
+                  {/* SIGN UP */}
+                  <Link to="/signup" onClick={toggleMobileMenu}>
+                    <button className="btn h-[48px] px-6 text-sm">
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
+                <div className="inline ml-10 mr-5">
+                  {/* TOGGLE */}
+                  <Toggle />
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-between items-center content-center">
                 <Link to="/signup" onClick={toggleMobileMenu}>
-                  <button className="btn h-[48px] px-6 text-sm">Sign Up</button>
+                  <button className="btn h-[48px] px-6 text-sm">Logout</button>
                 </Link>
+                <div className="inline ml-10 mr-5">
+                  <Toggle />
+                </div>
               </div>
-              <div className="inline ml-10 mr-5">
-                {/* TOGGLE */}
-                <Toggle />
-              </div>
-            </div>
+            )}
           </div>
           {/* </div> */}
         </div>

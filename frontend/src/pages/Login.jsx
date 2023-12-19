@@ -16,6 +16,13 @@ const schema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
+const setCookie = (name, value, hours) => {
+  const expirationDate = new Date();
+  expirationDate.setTime(expirationDate.getTime() + hours * 60 * 60 * 1000);
+
+  document.cookie = `${name}=${value};expires=${expirationDate.toUTCString()};path=/`;
+};
+
 const Login = () => {
   const navigate = useNavigate();
   const {
@@ -37,7 +44,7 @@ const Login = () => {
       loginPromise,
       {
         loading: "Loading",
-        success: (data) => `Successfully saved ${data}`,
+        success: (data) => `Successfully saved ${data.data.username}`,
         error: (err) => `Error: ${err.error}`,
       },
       {
@@ -53,12 +60,9 @@ const Login = () => {
 
     loginPromise
       .then((res) => {
-        // res = token
-        // let { token } = res.data;
-        // localStorage.setItem("token", token);
+        setCookie("loggedInUser", res.data.username, 24);
+        console.log(res.data.username);
         // navigate("/profile");
-        console.log(res);
-        // console.log();
       })
       .catch((error) => console.log(error));
   };

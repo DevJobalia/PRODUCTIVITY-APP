@@ -28,10 +28,15 @@ function NavBar() {
 
   const [token, setToken] = useState("");
 
+  const logout = () => {
+    document.cookie = `loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    setToken("");
+  };
+
   useEffect(() => {
     // const token = await localStorage.getItem('token');
     setToken(getCookie("loggedInUser"));
-  }, []);
+  }, [token]);
 
   return (
     <header className="fixed z-50 w-full p-5 lg:py-1 bg-bkg">
@@ -123,7 +128,7 @@ function NavBar() {
               </div>
             ) : (
               <div className="flex justify-between items-center content-center">
-                <Link to="/signup" onClick={toggleMobileMenu}>
+                <Link to="/" onClick={() => logout()}>
                   <button className="btn h-[48px] px-6 text-sm">Logout</button>
                 </Link>
                 <div className="inline ml-10 mr-5">

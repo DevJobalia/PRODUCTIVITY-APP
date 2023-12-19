@@ -6,7 +6,9 @@ export async function registerUser(credentials) {
     const response = await AxiosClient.post(
       "/api/v1/account/register",
       credentials,
-      { withCredentials: true }
+      {
+        credentials: "include",
+      }
     );
     return Promise.resolve(response.data.msg);
   } catch (error) {
@@ -15,7 +17,7 @@ export async function registerUser(credentials) {
 }
 
 export async function login({ username, password }) {
-  console.log(password);
+  console.log(username, password);
   try {
     if (username && password) {
       const { data } = await AxiosClient.post("/api/v1/account/login", {
@@ -26,5 +28,14 @@ export async function login({ username, password }) {
     }
   } catch (error) {
     return Promise.reject({ error: "Password doesn't Match" });
+  }
+}
+
+export async function sendToken() {
+  try {
+    const { data } = await AxiosClient.get("/api/v1/account/protected");
+    return Promise.resolve({ data });
+  } catch (error) {
+    return Promise.reject({ error: "Empty token Match" });
   }
 }

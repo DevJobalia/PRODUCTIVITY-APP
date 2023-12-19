@@ -50,11 +50,12 @@ export async function register(req, res) {
 
 export async function login(req, res) {
   const { username, password } = req.body;
-
+  console.log(req.body);
   try {
     userModel
       .findOne({ username })
       .then((user) => {
+        console.log(user);
         bcrypt
           .compare(password, user.password)
           .then((passwordCheck) => {
@@ -77,6 +78,8 @@ export async function login(req, res) {
             res.cookie("JWT", token, {
               httpOnly: true,
               maxAge: 900000,
+              domain: "localhost",
+              path: "/",
               // expires: expirationDate,
               // secure: true, // Set to true if serving over HTTPS
               // sameSite: "None", // Adjust SameSite attribute based on your needs

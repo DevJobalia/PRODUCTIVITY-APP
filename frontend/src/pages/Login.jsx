@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import user from "/user.svg";
 import eye from "/eye.svg";
 import GirlWorking from "/GirlWorking.jpg";
-import { login } from "../utils/API CALLS";
+import { login, sendToken } from "../utils/API CALLS";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -158,7 +158,10 @@ const Login = () => {
             Login
           </button>
         </form>
-        <button className="rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-100 text-center w-3/4 mb-8">
+        <button
+          className="rounded-2xl p-2 border-2 border-slate-100 bg-bkg text-slate-100 text-center w-3/4 mb-8"
+          onClick={() => sendToken()}
+        >
           Forget Password?
         </button>
         <p className="justify-center">

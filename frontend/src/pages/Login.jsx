@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
+import { setCookie } from "../utils/Cookie";
 
 import user from "/user.svg";
 import eye from "/eye.svg";
@@ -15,13 +16,6 @@ const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
 });
-
-const setCookie = (name, value, hours) => {
-  const expirationDate = new Date();
-  expirationDate.setTime(expirationDate.getTime() + hours * 60 * 60 * 1000);
-
-  document.cookie = `${name}=${value};expires=${expirationDate.toUTCString()};path=/`;
-};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -62,7 +56,7 @@ const Login = () => {
       .then((res) => {
         setCookie("loggedInUser", res.data.username, 24);
         console.log(res.data.username);
-        // navigate("/profile");
+        navigate("/todo");
       })
       .catch((error) => console.log(error));
   };

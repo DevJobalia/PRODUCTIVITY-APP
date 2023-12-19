@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Layout from "./Layout";
 import { Toaster } from "react-hot-toast";
 import PageNotFound from "./pages/PageNotFound";
+import { ProtectRoute } from "./middleware/auth";
 
 const router = createBrowserRouter([
   // <NavBar />
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
 
   {
     path: "/todo",
-    element: <Todo />,
+    element: (
+      <ProtectRoute>
+        <Todo />
+      </ProtectRoute>
+    ),
   },
 
   {
@@ -49,9 +54,11 @@ const router = createBrowserRouter([
   {
     path: "/newTask",
     element: (
-      <Layout>
-        <AddTask />
-      </Layout>
+      <ProtectRoute>
+        <Layout>
+          <AddTask />
+        </Layout>
+      </ProtectRoute>
     ),
   },
 

@@ -3,21 +3,7 @@ import Logo from "/Logo.png";
 import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
-
-const getCookie = (name) => {
-  const cookieString = document.cookie;
-  const cookies = cookieString.split(";");
-
-  for (const cookie of cookies) {
-    const [cookieName, cookieValue] = cookie.split("=").map((s) => s.trim());
-
-    if (cookieName === name) {
-      return cookieValue;
-    }
-  }
-
-  return null; // Return null if the cookie is not found
-};
+import { getCookie } from "../utils/Cookie";
 
 function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

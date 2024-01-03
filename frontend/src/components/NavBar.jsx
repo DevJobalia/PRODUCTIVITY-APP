@@ -4,6 +4,8 @@ import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
 import { getCookie } from "../utils/Cookie";
+import { getUser } from "../utils/API CALLS";
+import avatar from "/profile.png";
 
 function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,15 +16,10 @@ function NavBar() {
 
   const [token, setToken] = useState("");
 
-  const logout = () => {
-    document.cookie = `loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    setToken("");
-  };
-
   useEffect(() => {
     // const token = await localStorage.getItem('token');
-    // setToken(getCookie("loggedInUser"));
-    setToken("temp");
+    setToken(getCookie("loggedInUser"));
+    // setToken("temp");
   }, [token]);
 
   return (
@@ -115,7 +112,7 @@ function NavBar() {
               </div>
             ) : (
               <div className="flex justify-between items-center content-center">
-                <DropDownMenu />
+                <DropDownMenu token={token} />
                 <div className="inline ml-10 mr-5">
                   <Toggle />
                 </div>
@@ -131,7 +128,13 @@ function NavBar() {
 
 function DropDownMenu(props) {
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState();
   const dropdownRef = useRef(null);
+
+  const logout = () => {
+    document.cookie = `loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    setToken("");
+  };
 
   const handleClickOutside = (event) => {
     console.log("triggered");
@@ -139,6 +142,20 @@ function DropDownMenu(props) {
       setOpen(false);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const val = await getUser({ username: props.token });
+        console.log("USER DATA", val.profile);
+        setData(val);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -149,15 +166,21 @@ function DropDownMenu(props) {
   }, [open]);
   return (
     <div ref={dropdownRef}>
-      <button
+      {/* <button
         id="dropdownInformationButton"
         data-dropdown-toggle="dropdownInformation"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 relative"
+        // className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2.5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 relative"
+
         type="button"
+        
+      > */}
+      <img
+        src={data?.profile || avatar}
+        className=" cursor-pointer  border-1 border-gray-100 w-10 h-10 rounded-full shadow-lg align-middle items-center my-auto ml-10"
+        alt="avatar"
         onClick={() => setOpen(!open)}
-      >
-        Dropdown header{" "}
-        <svg
+      />
+      {/* <svg
           className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -171,8 +194,8 @@ function DropDownMenu(props) {
             stroke-width="2"
             d="m1 1 4 4 4-4"
           />
-        </svg>
-      </button>
+        </svg> */}
+      {/* </button> */}
 
       {/* <!-- Dropdown menu --> */}
       {open && (
@@ -181,8 +204,8 @@ function DropDownMenu(props) {
           className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-[4rem]"
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>Bonnie Green</div>
-            <div className="font-medium truncate">name@flowbite.com</div>
+            <div>{data.username}</div>
+            <div className="font-medium truncate">{data.email}</div>
           </div>
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"

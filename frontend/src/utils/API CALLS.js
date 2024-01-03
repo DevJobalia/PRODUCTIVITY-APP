@@ -40,3 +40,13 @@ export async function sendToken() {
     return Promise.reject({ error: "Empty token Match" });
   }
 }
+
+export async function getUser({ username }) {
+  try {
+    console.log("getuser", username);
+    const { data } = await AxiosClient.get(`/api/v1/account/user/${username}`);
+    return data;
+  } catch (error) {
+    return { error: "Password doesn't Match!" };
+  }
+}

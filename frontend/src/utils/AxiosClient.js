@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_REACT_APP_SERVER_DOMAIN;
-const USER_ID = 123;
+// const USER_ID = 123;
 axios.defaults.withCredentials = true;
 
 const AxiosClient = axios.create({

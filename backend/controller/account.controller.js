@@ -101,3 +101,30 @@ export async function login(req, res) {
     return res.status(500).send({ error });
   }
 }
+
+/** GET: http://localhost:8080/api/user/example123 */
+export async function getUser(req, res) {
+  const { username } = req.params;
+
+  try {
+    if (!username) {
+      return res.status(400).send({ error: "Invalid Username" });
+    }
+
+    const user = await userModel.findOne({ username });
+
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    console.log("GET USER", user);
+
+    /** remove password from user */
+    // mongoose return unnecessary data with object so convert it into json
+    const { password, ...rest } = Object.assign({}, user.toJSON());
+
+    return res.status(200).send(rest);
+  } catch (error) {
+    console.error("Error retrieving user:", error);
+    return res.status(500).send({ error: "Internal Server Error" });
+  }
+}

@@ -1,55 +1,6 @@
 // REF: https://cruip.com/create-an-infinite-horizontal-scroll-animation-with-tailwind-css/
-import React, { useRef, useEffect, useState } from "react";
-import image1 from "../assets/images/image-1.png";
-import image2 from "../assets/images/image-2.png";
-import image3 from "../assets/images/image-3.png";
+import React from "react";
 import { motion } from "framer-motion";
-
-import Card from "../components/Card";
-
-const cardData = [
-  {
-    title: "Galaxy Swirls",
-    img: {
-      src: image1,
-      alt: "galaxy swirl",
-    },
-    description:
-      "Galaxy swirls refer to the patterns of stars and gas within galaxies that appear as spiral arms. These arms are formed by the gravitational forces between stars and the rotation of the galaxy.",
-    cta: "Let’s Gooooooo!",
-  },
-
-  {
-    title: "Killer Mountains",
-    img: {
-      src: image3,
-      alt: "jagged mountains",
-    },
-    description:
-      "Mountains are majestic landforms characterized by steep slopes and high elevations. They are often associated with natural beauty, adventure, and challenge, and are home to diverse ecosystems and unique cultures.",
-    cta: "Pack My Bags",
-  },
-  {
-    title: "Galaxy Swirls",
-    img: {
-      src: image1,
-      alt: "galaxy swirl",
-    },
-    description:
-      "Galaxy swirls refer to the patterns of stars and gas within galaxies that appear as spiral arms. These arms are formed by the gravitational forces between stars and the rotation of the galaxy.",
-    cta: "Let’s Gooooooo!",
-  },
-  {
-    title: "Killer Mountains",
-    img: {
-      src: image3,
-      alt: "jagged mountains",
-    },
-    description:
-      "Mountains are majestic landforms characterized by steep slopes and high elevations. They are often associated with natural beauty, adventure, and challenge, and are home to diverse ecosystems and unique cultures.",
-    cta: "Pack My Bags",
-  },
-];
 
 function Dashboard() {
   return (

@@ -22,6 +22,10 @@ const router = createBrowserRouter([
 
   {
     path: "/",
+    element: <Dashboard />,
+  },
+  {
+    path: "/",
     element: isLoggedIn ? (
       <Dashboard />
     ) : (

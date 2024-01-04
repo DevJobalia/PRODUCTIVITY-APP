@@ -13,6 +13,7 @@ import PageNotFound from "./pages/PageNotFound";
 import { ProtectRoute } from "./middleware/auth";
 import { getCookie } from "./utils/Cookie";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 
 const isLoggedIn = getCookie("loggedInUser");
 console.log(isLoggedIn);
@@ -36,6 +37,16 @@ const router = createBrowserRouter([
     element: (
       <ProtectRoute>
         <Todo />
+      </ProtectRoute>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <ProtectRoute>
+        <Layout>
+          <Profile />
+        </Layout>
       </ProtectRoute>
     ),
   },

@@ -13,5 +13,8 @@ const router = Router();
 router.route("/register").post(controller.register);
 router.route("/login").post(controller.login);
 router.route("/user/:username").get(Auth, controller.getUser);
+router.route("/protected").get(Auth, (req, res) => {
+  res.json({ message: "Access granted", user: req.user });
+});
 
 export default router;

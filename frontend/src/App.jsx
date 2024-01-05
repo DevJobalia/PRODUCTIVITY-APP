@@ -69,17 +69,6 @@ const router = createBrowserRouter([
     ),
   },
 
-  {
-    path: "/newTask",
-    element: (
-      <ProtectRoute>
-        <Layout>
-          <AddTask />
-        </Layout>
-      </ProtectRoute>
-    ),
-  },
-
   { path: "/signup", element: <SignUp /> },
   { path: "/signin", element: <Login /> },
   {

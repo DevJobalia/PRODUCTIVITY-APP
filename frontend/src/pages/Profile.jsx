@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getCookie } from "../utils/Cookie";
+import { getUser } from "../utils/API CALLS";
+import { useForm, Controller } from "react-hook-form";
 
 function Profile() {
+  const { control, handleSubmit, setValue } = useForm();
+  const [img, setImg] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = getCookie("loggedInUser");
+        const userData = await getUser({ username: token });
+        console.log("USER DATA", userData);
+        setValue("username", userData.username);
+        setValue("email", userData.email);
+        setValue("city", userData.city);
+        setImg(userData.profile);
+        // setData(val);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const onSubmit = (data) => {
+    // Handle form submission
+    console.log("Form data submitted:", data);
+  };
+
   return (
-    // <div className="bg-bkg h-screen text-content grid grid-cols-[20%_80%] pt-20 gap-5 p-2">
-    //   <div className="rounded-md border-2 border-gray-400/50 p-5 h-fit">
-    //     User Setting
-    //   </div>
-    //   <div className="row-span-3 rounded-md border-2 border-gray-400/50">
-    //     dev2
-    //   </div>
-    //   <div className="rounded-md border-2 border-gray-400/50">dev3</div>
-    //   <div></div>
-    // </div>
-    <div className="bg-bkg text-content container mx-auto pt-20">
+    <div className="bg-bkg text-content container mx-auto pt-20 h-screen">
       <div className="flex flex-wrap pt-20 md:pt-2 p-2">
         <div className=" overflow-hidden mr-2">
           <div className="p-4 mb-2 bg-white border rounded-lg dark:text-slate-100 dark:bg-slate-950 dark:border-slate-800/80">
@@ -135,346 +154,163 @@ function Profile() {
         <div className="flex-1">
           <div className="p-8 bg-white border rounded-lg dark:bg-slate-950 dark:border-slate-800/80">
             <div className="">
-              <div className="flex flex-row flex-wrap">
-                <div className="w-full lg:w-1/2 lg:pr-10">
-                  <h4 className="mb-5 text-xl font-bold text-slate-900 dark:text-slate-100">
-                    Basic Info
-                  </h4>
-                  <div className="mb-6">
-                    <label
-                      for="nameField"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Full name
-                    </label>
-
-                    <input
-                      type="text"
-                      className="input-text "
-                      id="nameField"
-                      placeholder="Enter your full name"
-                      value="Dev K Jobalia"
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="tagline"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Profile Tagline
-                    </label>
-                    <input
-                      type="text"
-                      className="input-text"
-                      id="tagline"
-                      placeholder="Software Developer @ …"
-                      value="WEB DEV | DSA | DevOps | Open Source | Technical Writer"
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="customFile"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Profile Photo
-                    </label>
-                    <div className="relative block w-40 h-40 bg-slate-100 rounded-full shadow-xl">
-                      <a
-                        href="https://cdn.hashnode.com/res/hashnode/image/upload/v1697464166563/T9itdeLFt.png"
-                        target="_blank"
-                        className="block overflow-hidden rounded-full"
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                enctype="multipart/form-data"
+              >
+                <div className="flex flex-row flex-wrap">
+                  <div className="w-full lg:w-1/2 lg:pr-10">
+                    <h4 className="mb-5 text-xl font-bold text-slate-900 dark:text-slate-100">
+                      Basic Info
+                    </h4>
+                    <div className="mb-6">
+                      <label
+                        for="nameField"
+                        className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
                       >
-                        <img
-                          className="block"
-                          src="https://cdn.hashnode.com/res/hashnode/image/upload/v1697464166563/T9itdeLFt.png?w=600&amp;h=600&amp;fit=crop&amp;crop=faces&amp;auto=compress"
-                        />
-                      </a>
-                      <button className="absolute top-0 right-0 z-10 p-2 text-slate-700 bg-white border rounded-full">
-                        <svg
-                          className="w-4 h-4 fill-current"
-                          viewBox="0 0 448 512"
-                        >
-                          <path d="M296 432h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zm-160 0h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zM440 64H336l-33.6-44.8A48 48 0 00264 0h-80a48 48 0 00-38.4 19.2L112 64H8a8 8 0 00-8 8v16a8 8 0 008 8h24v368a48 48 0 0048 48h288a48 48 0 0048-48V96h24a8 8 0 008-8V72a8 8 0 00-8-8zM171.2 38.4A16.1 16.1 0 01184 32h80a16.1 16.1 0 0112.8 6.4L296 64H152zM384 464a16 16 0 01-16 16H80a16 16 0 01-16-16V96h320zm-168-32h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8z"></path>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="location"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      className="input-text"
-                      id="location"
-                      placeholder="California, US"
-                      value=""
-                    />
-                  </div>
-                  <h4 className="mt-10 mb-5 text-xl font-bold text-slate-900 dark:text-slate-100">
-                    About You
-                  </h4>
-                  <div className="mb-6">
-                    <label
-                      for="moreAboutYou"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Profile Bio (About you)
-                    </label>
-                    <textarea
-                      type="text"
-                      className="input-text min-h-30"
-                      id="moreAboutYou"
-                      placeholder="I am a developer from …"
-                    >
-                      Hey there! 👋 I'm Dev Jobalia, a Web Developer from India
-                      with a passion for Computer Science. I bring years of
-                      experience, a versatile tech toolkit, and a knack for
-                      fostering seamless teamwork. #WebDev #TechEnthusiast
-                      #Teamwork
-                    </textarea>
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="skills"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Tech Stack
-                    </label>
-                    <div className="">
-                      <div className="relative mb-2">
-                        <input
-                          type="text"
-                          className="input-text"
-                          id="skills"
-                          data-toggle="dropdown"
-                          placeholder="Search technologies, topics, more…"
-                        />
-                        <div className="absolute top-100 right-0 w-full h-auto bg-white dark:bg-slate-950 rounded-lg shadow-lg z-10"></div>
-                      </div>
-                      <div classNameName="flex flex-row flex-wrap">
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>MERN Stack</span>
-                          </a>
-                          <button data-index="0">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>Tailwind CSS</span>
-                          </a>
-                          <button data-index="1">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>framer-motion</span>
-                          </a>
-                          <button data-index="2">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>html/css</span>
-                          </a>
-                          <button data-index="3">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>JavaScript</span>
-                          </a>
-                          <button data-index="4">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>Java</span>
-                          </a>
-                          <button data-index="5">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div className="button-primary small mr-2 mb-2 flex flex-row items-center">
-                          <a href="#" className="mr-2">
-                            <span>DSA</span>
-                          </a>
-                          <button data-index="6">
-                            <svg
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 320 512"
-                            >
-                              <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="availableFor"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Available for
-                    </label>
-                    <textarea
-                      type="text"
-                      className="input-text min-h-30 available-field"
-                      id="availableFor"
-                      placeholder="I am available for mentoring, …"
-                    >
-                      Let's connect and grow together in the world of
-                      technology! 🚀
-                    </textarea>
-                    <small className="block mt-1 ml-2 leading-tight text-slate-600">
-                      78/140
-                    </small>
-                  </div>
-                </div>
-                <div className="w-full lg:w-1/2">
-                  <h4 className="mb-5 text-xl font-bold text-slate-900 dark:text-slate-100">
-                    Social
-                  </h4>
-
-                  <div className="mb-6">
-                    <label
-                      for="website"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Website URL
-                    </label>
-                    <input
-                      type="url"
-                      className="input-text }"
-                      id="website"
-                      placeholder="https://johndoe.com"
-                      value=""
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="linkedin"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      LinkedIn URL
-                    </label>
-                    <input
-                      type="url"
-                      pattern="(http|https)://linkedin\.com\/in\/(.+)|(http|https)://www\.linkedin\.com\/in/(.+)|(http|https)://linkedin\.com\/company\/(.+)|(http|https)://www\.linkedin\.com\/company/(.+)"
-                      className="input-text }"
-                      id="linkedin"
-                      placeholder="https://www.linkedin.com/in/johndoe"
-                      value=""
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      for="youtube"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      YouTube Channel
-                    </label>
-                    <input
-                      type="url"
-                      pattern="(http|https)://youtube\.com\/channel\/(.+)|(http|https)://www\.youtube\.com\/channel\/(.+)|(http|https)://youtube\.com\/c\/(.+)|(http|https)://www\.youtube\.com\/c\/(.+)|(http|https)://youtube\.com\/@([a-zA-Z0-9._-]+)|(http|https)://www\.youtube\.com\/@([a-zA-Z0-9._-]+)"
-                      className="input-text }"
-                      id="youtube"
-                      placeholder="https://www.youtube.com/channel/channel-name"
-                      value=""
-                    />
-                  </div>
-                  <h4 className="mt-10 mb-5 text-xl font-bold text-slate-900 dark:text-slate-100">
-                    Profile Identity
-                  </h4>
-                  <div className="mb-6">
-                    <label
-                      for="username"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Username
-                    </label>
-                    <small className="block mb-2 -mt-2 text-base italic text-slate-500 dark:text-slate-400">
-                      You have the option to change your username once. Please
-                      choose carefully as it cannot be changed again.
-                    </small>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        maxlength="20"
-                        className="input-text "
-                        id="username"
-                        placeholder=""
-                        value="DevJobalia"
+                        Username
+                      </label>
+                      <Controller
+                        name="username"
+                        control={control}
+                        render={({ field }) => (
+                          <input
+                            {...field}
+                            type="text"
+                            maxLength="20"
+                            id="username"
+                            class="mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300"
+                            placeholder="Enter your username"
+                          />
+                        )}
                       />
-                      <div className="absolute top-0 right-0 mt-4 mr-4 z-100"></div>
+                    </div>
+
+                    <div className="mb-6">
+                      <label
+                        for="customFile"
+                        className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
+                      >
+                        Profile Photo
+                      </label>
+                      <div className="relative block w-40 h-40 bg-slate-100 rounded-full shadow-xl">
+                        <a
+                          href="https://cdn.hashnode.com/res/hashnode/image/upload/v1697464166563/T9itdeLFt.png"
+                          target="_blank"
+                          className="block overflow-hidden rounded-full"
+                        >
+                          <img
+                            // className="fi object-cover"
+                            src={img}
+                            // src="https://cdn.hashnode.com/res/hashnode/image/upload/v1697464166563/T9itdeLFt.png?w=600&amp;h=600&amp;fit=crop&amp;crop=faces&amp;auto=compress"
+                          />
+                          {/* HIDDEN IMAGE UPLOAD */}
+                          <Controller
+                            name="profileImage"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => (
+                              <input
+                                {...field}
+                                type="file"
+                                accept="image/*"
+                                className="mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300"
+                              />
+                            )}
+                          />
+                        </a>
+                        <button className="absolute top-0 right-0 z-10 p-2 text-slate-700 bg-white border rounded-full">
+                          <svg
+                            className="w-4 h-4 fill-current"
+                            viewBox="0 0 448 512"
+                          >
+                            <path d="M296 432h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zm-160 0h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zM440 64H336l-33.6-44.8A48 48 0 00264 0h-80a48 48 0 00-38.4 19.2L112 64H8a8 8 0 00-8 8v16a8 8 0 008 8h24v368a48 48 0 0048 48h288a48 48 0 0048-48V96h24a8 8 0 008-8V72a8 8 0 00-8-8zM171.2 38.4A16.1 16.1 0 01184 32h80a16.1 16.1 0 0112.8 6.4L296 64H152zM384 464a16 16 0 01-16 16H80a16 16 0 01-16-16V96h320zm-168-32h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8z"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="mb-6">
+                      <label
+                        for="location"
+                        className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
+                      >
+                        City
+                      </label>
+                      <Controller
+                        name="city"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                          <input
+                            {...field}
+                            type="text"
+                            id="city"
+                            className="mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300"
+                            placeholder="Enter your city"
+                          />
+                        )}
+                      />
+                      {/* <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300"
+                        placeholder="California, US"
+                        //   value=""
+                      /> */}
                     </div>
                   </div>
-                  <div className="mb-6">
-                    <label
-                      for="email"
-                      className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
-                    >
-                      Email address
-                    </label>
-                    <small className="block mb-2 -mt-2 text-base italic text-slate-500 dark:text-slate-400">
-                      Changing your email address might break your OAuth sign-in
-                      if your social media accounts do not use the same email
-                      address. Please use magic link sign-in if you encounter
-                      such an issue.
-                    </small>
-                    <input
-                      type="email"
-                      className="input-text  "
-                      id="email"
-                      placeholder=""
-                      value="devkjobalia1@gmail.com"
-                    />
+                  <div className="w-full lg:w-1/2">
+                    <h4 className="mt-10 mb-5 text-xl font-bold text-slate-900 dark:text-slate-100">
+                      Profile Identity
+                    </h4>
+
+                    <div className="mb-6">
+                      <label
+                        for="email"
+                        className="block mb-2 text-sm font-semibold text-slate-900 dark:text-slate-300"
+                      >
+                        Email address
+                      </label>
+                      <small className="block mb-2 -mt-2 text-base italic text-slate-500 dark:text-slate-400">
+                        Changing your email address might break your OAuth
+                        sign-in if your social media accounts do not use the
+                        same email address. Please use magic link sign-in if you
+                        encounter such an issue.
+                      </small>
+
+                      <Controller
+                        name="email"
+                        control={control}
+                        defaultValue=""
+                        rules={{
+                          required: "Email is required",
+                          pattern: /^\S+@\S+$/i,
+                        }}
+                        render={({ field, fieldState }) => (
+                          <>
+                            <input
+                              {...field}
+                              type="text"
+                              id="email"
+                              className={`mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300 ${
+                                fieldState.invalid ? "border-red-500" : ""
+                              }`}
+                              placeholder="Enter your email"
+                            />
+                            {fieldState.invalid && (
+                              <p className="text-red-500 text-xs mt-1">
+                                {fieldState?.error?.message}
+                              </p>
+                            )}
+                          </>
+                        )}
+                      />
+                    </div>
+                    <button className="btn p-3 mt-20 ml-5 w-44">Update</button>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="pt-4 mt-5">
-              <button className="button-primary big">Update</button>
+              </form>
             </div>
           </div>
         </div>

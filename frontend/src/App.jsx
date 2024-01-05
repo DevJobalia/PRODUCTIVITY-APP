@@ -4,7 +4,6 @@ import Todo from "./pages/Todo";
 import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
 import Events from "./pages/Events";
-import AddTask from "./pages/AddTask";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Layout from "./Layout";

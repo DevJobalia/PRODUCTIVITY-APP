@@ -73,10 +73,14 @@ function NavBar() {
             } md:flex md:flex-initial items-start text-content`}
           >
             <div className="flex flex-col md:flex-row md:gap-x-20">
-              <a href="/#Home">Home</a>
-              <a href="/#Testimonial" onClick={toggleMobileMenu}>
-                Testimonial
-              </a>
+              {!token && (
+                <>
+                  <a href="/#Home">Home</a>
+                  <a href="/#Testimonial" onClick={toggleMobileMenu}>
+                    Testimonial
+                  </a>
+                </>
+              )}
               <Link to="/todo" onClick={toggleMobileMenu}>
                 Todo
               </Link>

@@ -33,27 +33,27 @@ export const ProtectRoute = ({ children }) => {
   );
 };
 
-export const ProtectHome = () => {
-  const [username, setUsername] = useState();
+// export const ProtectHome = () => {
+//   const [username, setUsername] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await sendToken();
-        setUsername(response.user.username);
-        console.log(response.user.username);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setUsername(null);
-      }
-    };
-    console.log("DASHBOARD", username);
-    fetchData();
-  }, []);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await sendToken();
+//         setUsername(response.user.username);
+//         console.log(response.user.username);
+//       } catch (error) {
+//         console.error("Error fetching data:", error);
+//         setUsername(null);
+//       }
+//     };
+//     console.log("DASHBOARD", username);
+//     fetchData();
+//   }, []);
 
-  return (
-    <>
-      <Layout>{username !== null ? <Dashboard /> : <Home />}</Layout>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Layout>{username !== null ? <Dashboard /> : <Home />}</Layout>
+//     </>
+//   );
+// };

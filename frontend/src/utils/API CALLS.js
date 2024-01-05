@@ -49,3 +49,5 @@ export async function getUser() {
     return { error: "Password doesn't Match!" };
   }
 }
+
+// updateUser

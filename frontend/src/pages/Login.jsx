@@ -10,6 +10,8 @@ import user from "/user.svg";
 import eye from "/eye.svg";
 import GirlWorking from "/GirlWorking.jpg";
 import { login, sendToken } from "../utils/API CALLS";
+import { useDispatch } from "react-redux";
+import { saveUser } from "../store/slice/userData.slice";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -18,6 +20,7 @@ const schema = yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -26,37 +29,59 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data); // Handle form submission logic here
+  const onSubmit = async (data) => {
+    // console.log(data); // Handle form submission logic here
 
-    let loginPromise = login({
-      username: data.username,
-      password: data.password,
-    });
-    toast.promise(
-      loginPromise,
-      {
-        loading: "Loading",
-        success: (data) => `Successfully saved ${data.data.username}`,
-        error: (err) => `Error: ${err.error}`,
-      },
-      {
-        style: {
-          minWidth: "250px",
-        },
-        success: {
-          duration: 5000,
-          icon: "🔥",
-        },
-      }
-    );
+    // let loginPromise = login({
+    //   username: data.username,
+    //   password: data.password,
+    // });
+    // toast.promise(
+    //   loginPromise,
+    //   {
+    //     loading: "Loading",
+    //     success: (data) => `Successfully saved ${data.data.username}`,
+    //     error: (err) => `Error: ${err.error}`,
+    //   },
+    //   {
+    //     style: {
+    //       minWidth: "250px",
+    //     },
+    //     success: {
+    //       duration: 5000,
+    //       icon: "🔥",
+    //     },
+    //   }
+    // );
 
-    loginPromise
-      .then((res) => {
-        console.log(res.data.username);
-        navigate("/todo");
-      })
-      .catch((error) => console.log(error));
+    // loginPromise
+    //   .then((res) => {
+    //     console.log(res.data.username);
+    //     navigate("/todo");
+    //   })
+    //   .catch((error) => console.log(error));
+    try {
+      const response = await login({
+        username: data.username,
+        password: data.password,
+      });
+
+      const user = response.data;
+
+      // Dispatch the saveUser action to update the user data in the Redux store
+      dispatch(saveUser(user));
+
+      toast.success(`Successfully logged in as ${user.username}`, {
+        duration: 5000,
+        icon: "🎉",
+      });
+
+      // Navigate to the desired page after successful login
+      navigate("/todo");
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.error(`Login failed: ${error.message}`);
+    }
   };
 
   return (

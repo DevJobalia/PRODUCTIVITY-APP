@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
 import Todo from "./pages/Todo";
 import Blogs from "./pages/Blogs";
 import Events from "./pages/Events";
@@ -8,7 +9,7 @@ import Login from "./pages/Login";
 import Layout from "./Layout";
 import { Toaster } from "react-hot-toast";
 import PageNotFound from "./pages/PageNotFound";
-import { ProtectHome, ProtectRoute } from "./middleware/auth";
+import { ProtectRoute } from "./middleware/auth";
 import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
 
   {
     path: "/",
-    element: <ProtectHome />,
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ), //<ProtectHome />,
   },
 
   {

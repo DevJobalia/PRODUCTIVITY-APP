@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import Logo from "/Logo.png";
 import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
@@ -13,21 +15,22 @@ function NavBar() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const [token, setToken] = useState("");
+  const userData = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const user = await sendToken();
-        console.log("TOKEN NAV", user);
-        setToken(user.user.username);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const user = await sendToken();
+  //       console.log("TOKEN NAV", user);
+  //       setToken(user.user.username);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [token]);
+  //   fetchData();
+  // }, [token]);
 
   return (
     <header className="fixed z-50 w-full p-5 lg:py-1 bg-bkg">
@@ -80,7 +83,7 @@ function NavBar() {
             } md:flex md:flex-initial items-start text-content`}
           >
             <div className="flex flex-col md:flex-row md:gap-x-20">
-              {!token && (
+              {!userData && (
                 <>
                   <a href="/#Home">Home</a>
                   <a href="/#Testimonial" onClick={toggleMobileMenu}>
@@ -100,7 +103,7 @@ function NavBar() {
             </div>
           </div>
           <div className="flex-auto justify-between md:flex-initial">
-            {!token ? (
+            {!userData ? (
               <div className="flex justify-between items-center content-center">
                 {/* SIGN IN */}
                 <a className="text-gradient btn-link" href="/signin">
@@ -123,7 +126,7 @@ function NavBar() {
               </div>
             ) : (
               <div className="flex justify-between items-center content-center">
-                <DropDownMenu token={token} />
+                <DropDownMenu />
                 <div className="inline ml-10 mr-5">
                   <Toggle />
                 </div>
@@ -137,14 +140,19 @@ function NavBar() {
   );
 }
 
-function DropDownMenu(props) {
+function DropDownMenu() {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   const dropdownRef = useRef(null);
 
+  // Access user data from Redux store
+  const userData = useSelector((state) => state.user.data);
+
+  const dispatch = useDispatch();
+
   const logout = () => {
-    document.cookie = `loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    setToken("");
+    // <Navigate to={"/"} replace={true}></Navigate>;
+    dispatch(deleteUser());
   };
 
   const handleClickOutside = (event) => {
@@ -154,19 +162,19 @@ function DropDownMenu(props) {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const val = await getUser();
-        console.log("USER DATA", val.profile);
-        setData(val);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const val = await getUser();
+  //       console.log("USER DATA", val.profile);
+  //       setData(val);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -186,7 +194,7 @@ function DropDownMenu(props) {
         
       > */}
       <img
-        src={data?.profile || avatar}
+        src={userData?.profile || avatar}
         className=" cursor-pointer  border-1 border-gray-100 w-10 h-10 rounded-full shadow-lg align-middle items-center my-auto ml-10"
         alt="avatar"
         onClick={() => setOpen(!open)}
@@ -215,8 +223,8 @@ function DropDownMenu(props) {
           className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-[4rem]"
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{data.username}</div>
-            <div className="font-medium truncate">{data.email}</div>
+            <div>{userData?.username}</div>
+            <div className="font-medium truncate">{userData?.email}</div>
           </div>
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"

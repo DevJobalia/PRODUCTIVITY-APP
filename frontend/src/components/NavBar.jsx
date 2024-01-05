@@ -3,8 +3,7 @@ import Logo from "/Logo.png";
 import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
-import { getCookie } from "../utils/Cookie";
-import { getUser } from "../utils/API CALLS";
+import { getUser, sendToken } from "../utils/API CALLS";
 import avatar from "/profile.png";
 
 function NavBar() {
@@ -17,9 +16,17 @@ function NavBar() {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    // const token = await localStorage.getItem('token');
-    setToken(getCookie("loggedInUser"));
-    // setToken("temp");
+    const fetchData = async () => {
+      try {
+        const user = await sendToken();
+        console.log("TOKEN NAV", user);
+        setToken(user.user.username);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
   }, [token]);
 
   return (
@@ -35,7 +42,7 @@ function NavBar() {
             <div>
               {/* logo */}
               <a href="/">
-                <img src={Logo} alt="" className="w-20 block m-auto lg:flex" />
+                <img src={Logo} alt="" className="w-20 block m-auto lg:flex" />{" "}
               </a>
             </div>
             <div className="flex-1">

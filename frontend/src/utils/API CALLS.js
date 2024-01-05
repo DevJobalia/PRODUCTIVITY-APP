@@ -35,7 +35,7 @@ export async function login({ username, password }) {
 export async function sendToken() {
   try {
     const { data } = await AxiosClient.get("/api/v1/account/protected");
-    return Promise.resolve({ data });
+    return Promise.resolve(data);
   } catch (error) {
     return Promise.reject({ error: "Empty token Match" });
   }

@@ -1,10 +1,49 @@
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getCookie } from "../utils/Cookie";
+import { sendToken } from "../utils/API CALLS";
+import Dashboard from "../pages/Dashboard";
+import Home from "../pages/Home";
+import Layout from "../Layout";
+
+const fetchData = async () => {
+  try {
+    const response = await sendToken();
+    setUsername(response.user.username);
+    console.log(response.user.username);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    setUsername(null);
+  }
+};
 
 export const ProtectRoute = ({ children }) => {
-  const username = getCookie("loggedInUser");
-  if (!username) {
-    return <Navigate to={"/signin"} replace={true}></Navigate>;
-  }
-  return children;
+  const [username, setUsername] = useState();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      {username !== null ? (
+        children
+      ) : (
+        <Navigate to={"/signin"} replace={true}></Navigate>
+      )}
+    </>
+  );
+};
+
+export const ProtectHome = () => {
+  const [username, setUsername] = useState();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <Layout>{username !== null ? <Dashboard /> : <Home />}</Layout>
+    </>
+  );
 };

@@ -9,26 +9,17 @@ import Login from "./pages/Login";
 import Layout from "./Layout";
 import { Toaster } from "react-hot-toast";
 import PageNotFound from "./pages/PageNotFound";
-import { ProtectRoute } from "./middleware/auth";
+import { ProtectHome, ProtectRoute } from "./middleware/auth";
 import { getCookie } from "./utils/Cookie";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
-
-const isLoggedIn = getCookie("loggedInUser");
-console.log(isLoggedIn);
 
 const router = createBrowserRouter([
   // <NavBar />
 
   {
     path: "/",
-    element: isLoggedIn ? (
-      <Dashboard />
-    ) : (
-      <Layout>
-        <Home />
-      </Layout>
-    ),
+    element: <ProtectHome />,
   },
 
   {

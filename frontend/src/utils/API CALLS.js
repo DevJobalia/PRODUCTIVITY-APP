@@ -44,7 +44,7 @@ export async function sendToken() {
 export async function getUser({ username }) {
   try {
     console.log("getuser", username);
-    const { data } = await AxiosClient.get(`/api/v1/account/user/${username}`);
+    const { data } = await AxiosClient.get(`/api/v1/account/user`);
     return data;
   } catch (error) {
     return { error: "Password doesn't Match!" };

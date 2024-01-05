@@ -103,20 +103,30 @@ export async function login(req, res) {
 }
 
 /** GET: http://localhost:8080/api/user/example123 */
-export async function getUser(req, res) {
-  const { username } = req.params;
+export async function getLoggedInUser(req, res) {
+  // const { username } = req.params;
 
   try {
-    if (!username) {
-      return res.status(400).send({ error: "Invalid Username" });
-    }
+    // const myCookie = req.cookies.JWT;
 
-    const user = await userModel.findOne({ username });
+    // // Do something with the cookie value
+    // if (!myCookie) {
+    //   return res.status(400).send({ error: "User Not LoggedIn" });
+    //   // console.log('Value of myCookie:', myCookie);
+    //   // res.send(`Value of myCookie: ${myCookie}`);
+    // }
+    // const decode = jwt.verify(myCookie, process.env.JWT_SECRET);
+    // console.log(decode);
+
+    const LoggedInUser = req.user;
+    console.log("DECODE", LoggedInUser.username);
+
+    const user = await userModel.findOne({ username: LoggedInUser.username });
 
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
-    console.log("GET USER", user);
+    console.log("GET USER", user.username);
 
     /** remove password from user */
     // mongoose return unnecessary data with object so convert it into json

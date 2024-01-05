@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
-import { setCookie } from "../utils/Cookie";
 
 import user from "/user.svg";
 import eye from "/eye.svg";
@@ -54,7 +53,6 @@ const Login = () => {
 
     loginPromise
       .then((res) => {
-        setCookie("loggedInUser", res.data.username, 24);
         console.log(res.data.username);
         navigate("/todo");
       })

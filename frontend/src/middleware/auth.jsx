@@ -5,21 +5,20 @@ import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Layout from "../Layout";
 
-const fetchData = async () => {
-  try {
-    const response = await sendToken();
-    setUsername(response.user.username);
-    console.log(response.user.username);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    setUsername(null);
-  }
-};
-
 export const ProtectRoute = ({ children }) => {
   const [username, setUsername] = useState();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await sendToken();
+        setUsername(response.user.username);
+        console.log(response.user.username);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setUsername(null);
+      }
+    };
     fetchData();
   }, []);
 
@@ -38,6 +37,17 @@ export const ProtectHome = () => {
   const [username, setUsername] = useState();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await sendToken();
+        setUsername(response.user.username);
+        console.log(response.user.username);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setUsername(null);
+      }
+    };
+    console.log("DASHBOARD", username);
     fetchData();
   }, []);
 

@@ -9,8 +9,7 @@ function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = getCookie("loggedInUser");
-        const userData = await getUser({ username: token });
+        const userData = await getUser();
         console.log("USER DATA", userData);
         setValue("username", userData.username);
         setValue("email", userData.email);

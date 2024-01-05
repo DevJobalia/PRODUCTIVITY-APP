@@ -41,9 +41,8 @@ export async function sendToken() {
   }
 }
 
-export async function getUser({ username }) {
+export async function getUser() {
   try {
-    console.log("getuser", username);
     const { data } = await AxiosClient.get(`/api/v1/account/user`);
     return data;
   } catch (error) {

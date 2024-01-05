@@ -157,7 +157,7 @@ function DropDownMenu(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const val = await getUser({ username: props.token });
+        const val = await getUser();
         console.log("USER DATA", val.profile);
         setData(val);
       } catch (error) {

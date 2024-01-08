@@ -50,4 +50,14 @@ export async function getUser() {
   }
 }
 
+// LOGOUT
+export async function userLogout() {
+  try {
+    const { data } = await AxiosClient.get(`/api/v1/account/logout`);
+    return data;
+  } catch (error) {
+    return { error: "Error logging out!" };
+  }
+}
+
 // updateUser

@@ -13,6 +13,7 @@ const router = Router();
 router.route("/register").post(controller.register);
 router.route("/login").post(controller.login);
 router.route("/user").get(Auth, controller.getLoggedInUser);
+router.route("/logout").get(Auth, controller.logout);
 router.route("/protected").get(Auth, (req, res) => {
   res.json({ message: "Access granted", user: req.user });
 });

@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import Layout from "./Layout";
 import { Toaster } from "react-hot-toast";
 import PageNotFound from "./pages/PageNotFound";
-import { ProtectRoute } from "./middleware/auth";
+import { ProtectHome, ProtectRoute } from "./middleware/auth";
 import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
@@ -17,11 +17,7 @@ const router = createBrowserRouter([
 
   {
     path: "/",
-    element: (
-      <Layout>
-        <Home />
-      </Layout>
-    ), //<ProtectHome />,
+    element: <ProtectHome />,
   },
 
   {

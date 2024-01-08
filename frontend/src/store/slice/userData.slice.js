@@ -1,11 +1,11 @@
 // userSlice.js
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUser } from "../../utils/API CALLS";
+import { sendToken } from "../../utils/API CALLS";
 
 // Async thunk to fetch user data
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-  const user = await getUser();
+  const user = await sendToken();
   return user;
 });
 

@@ -138,3 +138,10 @@ export async function getLoggedInUser(req, res) {
     return res.status(500).send({ error: "Internal Server Error" });
   }
 }
+
+export async function logout(req, res) {
+  res.cookie("JWT", "", { expires: new Date(0), httpOnly: true });
+
+  // Send a response
+  res.send("Cookie deleted");
+}

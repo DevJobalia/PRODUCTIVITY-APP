@@ -5,8 +5,9 @@ import Logo from "/Logo.png";
 import { GoDotFill } from "react-icons/go";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
-import { getUser, sendToken } from "../utils/API CALLS";
 import avatar from "/profile.png";
+import { deleteUser, fetchUser } from "../store/slice/userData.slice";
+import { getUser, userLogout } from "../utils/API CALLS";
 
 function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,8 +16,13 @@ function NavBar() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const userData = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
+  useEffect(() => {
+    // Dispatch the fetchUser action when the component mounts
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  const userData = useSelector((state) => state.user.data);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -142,16 +148,32 @@ function NavBar() {
 
 function DropDownMenu() {
   const [open, setOpen] = useState(false);
-  // const [data, setData] = useState();
+  const [data, setData] = useState();
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Dispatch the fetchUser action when the component mounts
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   // Access user data from Redux store
   const userData = useSelector((state) => state.user.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Dispatch the fetchUser action when the component mounts
+      if (userData) {
+        setData(await getUser());
+        console.log(data);
+      }
+    };
 
-  const dispatch = useDispatch();
+    fetchData();
+  }, []);
+  console.log("USERDATA", userData);
 
-  const logout = () => {
+  const logout = async () => {
     // <Navigate to={"/"} replace={true}></Navigate>;
+    await userLogout();
     dispatch(deleteUser());
   };
 
@@ -183,6 +205,7 @@ function DropDownMenu() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [open]);
+  console.log("NAV", userData);
   return (
     <div ref={dropdownRef}>
       {/* <button
@@ -194,7 +217,7 @@ function DropDownMenu() {
         
       > */}
       <img
-        src={userData?.profile || avatar}
+        src={data?.profile || avatar}
         className=" cursor-pointer  border-1 border-gray-100 w-10 h-10 rounded-full shadow-lg align-middle items-center my-auto ml-10"
         alt="avatar"
         onClick={() => setOpen(!open)}
@@ -223,8 +246,8 @@ function DropDownMenu() {
           className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-[4rem]"
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{userData?.username}</div>
-            <div className="font-medium truncate">{userData?.email}</div>
+            <div>{userData?.user.username}</div>
+            <div className="font-medium truncate">{data?.email}</div>
           </div>
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"

@@ -57,3 +57,7 @@ In the code you provided, you've already implemented the basic functionality for
 20. **Database Security**: If your application interacts with a database, follow best practices for securing the database and handling queries to prevent SQL injection.
 
 Please note that these are high-level best practices, and the specific implementation may vary based on the requirements of your project, your backend technology stack, and the level of security and scalability needed. Consider working with experienced developers or security experts to ensure that your application is secure and well-maintained.
+
+## NOTE:
+
+- After implementing appwrite auth. in MERN SOCIAL MEdia app. I understood to implement get user if login and set it to redux state when file loads. AUTH IMPLEMENTATION WAS HARD BECAUSE OF LACK OF KNOWLEDGE OF STATE MANAGEMENT. UNDERSTOOD WHEN JavaScriptMastery set his context initial state every time page reloads

@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
+import userModel from "../MONGODB/MODELS/userModel.js";
 
 /** auth middleware */
 export default async function Auth(req, res, next) {
   try {
     const token = req.cookies.JWT;
 
-    // console.log("Received Token:", token);
+    console.log("Received Token:", req.data);
 
     if (!token) {
       // Token not present, returning 401 Unauthorized
@@ -14,6 +15,10 @@ export default async function Auth(req, res, next) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+
+    const role = await userModel.findOne({ username: decoded.username });
+    console.log("reci", role);
+    req.role = role.role;
     // console.log(decoded);
     next();
   } catch (error) {

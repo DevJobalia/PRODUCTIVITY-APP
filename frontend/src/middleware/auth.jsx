@@ -66,11 +66,24 @@ export const ProtectHome = () => {
   //   fetchData();
   // }, []);
   const userData = useSelector((state) => state.user.data);
-
+  console.log("user data auth", userData);
+  const role = userData.role;
   return (
     <>
       <Layout>
-        {userData !== null ? <Dashboard /> : <Home />}
+        {userData !== null ? (
+          role === "Admin" ? (
+            <>
+              <Dashboard />
+              jj
+            </>
+          ) : (
+            "ss"
+          )
+        ) : (
+          <Home />
+        )}
+        {/* {userData !== null ? <Dashboard /> : <Home />} */}
         {/* {userData} */}
       </Layout>
     </>

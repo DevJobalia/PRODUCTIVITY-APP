@@ -39,9 +39,9 @@ export default function Account({ setPersonalData }) {
             <option value="" disabled>
               Select Role
             </option>
-            <option value="volvo">Admin</option>
-            <option value="saab">User</option>
-            <option value="mercedes">Moderator</option>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+            <option value="Moderator">Moderator</option>
           </select>
         </div>
       </div>

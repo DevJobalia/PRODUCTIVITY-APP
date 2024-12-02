@@ -3,13 +3,13 @@ import bcrypt from "bcrypt";
 import userModel from "../MONGODB/MODELS/userModel.js";
 
 export async function register(req, res) {
-  const { username, password, email, city, profile } = req.body;
+  const { username, password, email, city, profile, role } = req.body;
   try {
     // check if the username, password, and email are not empty
-    if (!username || !password || !email) {
+    if (!username || !password || !email || !role) {
       return res
         .status(400)
-        .json({ error: "Username, password, and email are required." });
+        .json({ error: "Username, password, role and email are required." });
     }
 
     // hash the password
@@ -22,6 +22,7 @@ export async function register(req, res) {
       email: email,
       city: city,
       profile: profile,
+      role,
     });
 
     // save the new user to the database

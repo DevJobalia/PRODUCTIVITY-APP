@@ -184,9 +184,9 @@ const SignUp = () => {
 
   const steps = ["Personal Information", "Account Setup", "Complete"];
 
-  useEffect(() => {
-    console.log(termsChecked);
-  }, [termsChecked]);
+  // useEffect(() => {
+  //   console.log(termsChecked);
+  // }, [termsChecked]);
 
   const displayStep = (step) => {
     switch (step) {

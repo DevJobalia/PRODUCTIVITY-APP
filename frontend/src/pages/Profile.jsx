@@ -199,7 +199,7 @@ function Profile() {
                           className="block overflow-hidden rounded-full"
                         >
                           <img
-                            // className="fi object-cover"
+                            className="object-cover"
                             src={img}
                             // src="https://cdn.hashnode.com/res/hashnode/image/upload/v1697464166563/T9itdeLFt.png?w=600&amp;h=600&amp;fit=crop&amp;crop=faces&amp;auto=compress"
                           />
@@ -213,7 +213,7 @@ function Profile() {
                                 {...field}
                                 type="file"
                                 accept="image/*"
-                                className="mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300"
+                                className="mt-1 p-2 w-full border-2 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-900 text-slate-300 invisible"
                               />
                             )}
                           />

@@ -18,6 +18,7 @@ export const UserSchema = new mongoose.Schema({
   },
   city: { type: String },
   profile: { type: String },
+  role: { type: String },
   // firstName: { type: String },
   // lastName: { type: String },
   // mobile: { type: Number },

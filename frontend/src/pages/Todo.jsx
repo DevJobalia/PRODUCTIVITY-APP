@@ -65,7 +65,8 @@ function Todo() {
         }
         console.log(tagFilter);
       } catch (error) {
-        alert(error);
+        console.log(error, "todo error");
+        // alert(error);
       } finally {
         setTaskUpdated(false);
       }

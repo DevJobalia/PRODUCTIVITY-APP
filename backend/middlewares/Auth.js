@@ -19,7 +19,7 @@ export default async function Auth(req, res, next) {
     const role = await userModel.findOne({ username: decoded.username });
     console.log("reci", role);
     req.role = role.role;
-    // console.log(decoded);
+    console.log(decoded);
     next();
   } catch (error) {
     console.error("Authentication Error:", error);

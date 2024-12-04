@@ -1,16 +1,123 @@
 PRODCUTIVTY APP: TASK MANAGER
 
+
+https://github.com/user-attachments/assets/ec505930-87d9-4175-bc2c-2d8c56adceb9
+
+
 # FUNCTIONALITY
 
 - Dark Light Theme
 - Multistep form
--
+- Custom Auth - JWT
+- RBAC
 
 # TECH STACK
 
 - React
 - Tailwind
 - Framer Motion
+
+## Project Structure
+
+```plaintext
+PRODUCTIVITY APP/
+├── backend/
+│   ├── controller/     
+│   ├── middlewares/     
+│   ├── MONGODB/         
+│   ├── routes/         
+│   ├── index.js       
+│   └── .env            
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/ 
+│   │   ├── components/ 
+│   │   ├── context/ 
+│   │   ├── middleware/ 
+│   │   ├── pages/      
+│   │   ├── store/
+│   │   ├── utils/
+│   │   ├── validation/
+│   │   ├── App.jsx      
+│   │   ├── index.css      
+│   │   ├── Layout.jsx      
+│   │   ├── main.jsx      
+│   │   └── .env        
+└── README.md           
+```
+
+---
+## Project Setup
+This project was bootstrapped with [Vite](#).
+
+package manager used [npm](#)
+
+*Follow these steps to set up and run the project.*
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
+```
+
+---
+
+### 2. Set Up the Backend
+
+1. Navigate to the backend folder:
+   ```bash
+   cd backend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the `backend` directory and add your environment variables:
+   ```plaintext
+   # MONGODB_URL="mongodb://127.0.0.1/ProductivityApp"
+  MONGODB_URL="mongodb+srv://devkjobalia1:5zdpMnL1P3K1c1an@cluster0.ttv9a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  JWT_SECRET="L8jS8WNQ7ZFZaPJj9AXreyD8EHGcBGnRiNg5Ld9edjs="
+   ```
+
+4. Start the backend server:
+   ```bash
+   npm start
+   ```
+   The server will start on `http://localhost:3000`.
+
+---
+
+### 3. Set Up the Frontend
+
+1. Navigate to the frontend folder:
+   ```bash
+   cd ../frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the frontend server:
+   ```bash
+   npm run dev
+   ```
+   The application will open in your default browser at `http://localhost:5173`.
+
+---
+
+### 4. Run the Full Stack Application
+
+- The **backend** runs on `http://localhost:3000`.
+- The **frontend** runs on `http://localhost:5173`.
+
+---
+
 
 # FUTURE SCOPE
 
@@ -56,8 +163,8 @@ In the code you provided, you've already implemented the basic functionality for
 
 20. **Database Security**: If your application interacts with a database, follow best practices for securing the database and handling queries to prevent SQL injection.
 
-Please note that these are high-level best practices, and the specific implementation may vary based on the requirements of your project, your backend technology stack, and the level of security and scalability needed. Consider working with experienced developers or security experts to ensure that your application is secure and well-maintained.
 
 ## NOTE:
 
 - After implementing appwrite auth. in MERN SOCIAL MEdia app. I understood to implement get user if login and set it to redux state when file loads. AUTH IMPLEMENTATION WAS HARD BECAUSE OF LACK OF KNOWLEDGE OF STATE MANAGEMENT. UNDERSTOOD WHEN JavaScriptMastery set his context initial state every time page reloads
+
